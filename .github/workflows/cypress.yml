@@ -1,4 +1,4 @@
-name: "Start eHub"
+name: "Start eHub and cypress"
 
 on:
   workflow_dispatch: # Allows manual execution
