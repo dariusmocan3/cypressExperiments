@@ -6,7 +6,7 @@ on:
 jobs:
   run-tests:
     runs-on: windows-latest
-    timeout-minutes: 15 # Extended timeout to accommodate both app and tests
+    timeout-minutes: 5 # Extended timeout to accommodate both app and tests
 
     steps:
       # Step 1: Checkout the repository
@@ -34,7 +34,7 @@ jobs:
         shell: cmd
         run: |
           echo "Starting eController.IntegrationHub.exe..."
-          cd ehub # Navigate to the ehub folder
+          cd "C:\Users\Darius\Desktop\cypressExperiment 2\ehub" # Full path to the directory
           start "" cmd /c .\eController.IntegrationHub.exe # Fully detach the process
 
       # Step 5: Wait for the application to start
