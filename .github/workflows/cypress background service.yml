@@ -35,6 +35,7 @@ jobs:
         run: |
           echo "Starting eController.IntegrationHub.exe..."
           Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow  
+        background: true
 
       # Step 6: Setup Node.js environment
       - name: Setup Node.js
