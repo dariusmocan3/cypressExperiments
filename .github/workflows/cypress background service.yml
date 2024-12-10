@@ -34,7 +34,7 @@ jobs:
         shell: cmd
         run: |
           echo "Starting eController.IntegrationHub.exe..."
-          cd "C:\Users\Darius\Desktop\cypressExperiment 2\ehub" # Full path to the directory
+          cd eHub # Full path to the directory
           start "" cmd /c .\eController.IntegrationHub.exe # Fully detach the process
 
       # Step 5: Wait for the application to start
