@@ -36,6 +36,10 @@ jobs:
           echo "Starting eController.IntegrationHub.exe..."
           Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow
 
+      - name: Check if eController.IntegrationHub.exe is running
+        shell: pws
+        run: Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
+
             # Step 5: Wait until the application is listening on port 9880
       - name: Wait for application to initialize
         shell: pwsh
@@ -69,10 +73,6 @@ jobs:
         run: |
           echo "Installing dependencies..."
           npm install
-
-      - name: Check if eController.IntegrationHub.exe is running
-        shell: cmd
-        run: tasklist | findstr IntegrationHub.exe
 
       # Step 8: Run Cypress Tests
       - name: Run Cypress Tests
