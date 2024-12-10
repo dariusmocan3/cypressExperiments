@@ -28,13 +28,13 @@ jobs:
         run: |
           echo "Listing all files:"
           Get-ChildItem -Path . -Recurse
-          
+
       # Step 4: Execute the eController.IntegrationHub.exe application
       - name: Start eController.IntegrationHub.exe
-        shell: cmd
+        shell: pwsh
         run: |
           echo "Starting eController.IntegrationHub.exe..."
-          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub"
+          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow -Wait    
 
       # Step 5: Wait for the application to start
       - name: Wait for the application to initialize
