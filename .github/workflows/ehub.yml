@@ -33,4 +33,4 @@ jobs:
         run: |
           echo "Running eController.IntegrationHub.exe..."
           cd ehub # Navigate to the `publish` folder
-          .\eController.IntegrationHub.exe & # Run the application in the background
+          .\eController.IntegrationHub.exe
