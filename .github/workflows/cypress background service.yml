@@ -34,9 +34,30 @@ jobs:
         shell: pwsh
         run: |
           echo "Starting eController.IntegrationHub.exe..."
-          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow  
-        background: true
+          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow
 
+            # Step 5: Wait until the application is listening on port 9880
+      - name: Wait for application to initialize
+        shell: pwsh
+        run: |
+          echo "Waiting for the application to start on http://localhost:9880..."
+          $maxRetries = 30
+          $retryCount = 0
+          while ($retryCount -lt $maxRetries) {
+              try {
+                  Invoke-WebRequest -Uri "http://localhost:9880" -UseBasicParsing -TimeoutSec 5
+                  echo "Application is ready!"
+                  break
+              } catch {
+                  echo "Application not ready yet, retrying in 2 seconds..."
+                  Start-Sleep -Seconds 2
+                  $retryCount++
+              }
+          }
+          if ($retryCount -eq $maxRetries) {
+              throw "Application failed to start after $($maxRetries * 2) seconds."
+          }
+          
       # Step 6: Setup Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v3
