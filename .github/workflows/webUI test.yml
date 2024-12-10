@@ -1,0 +1,38 @@
+
+name: "Run eController.WebUI"
+
+on:
+  workflow_dispatch: # Allows manual execution
+
+jobs:
+  run-application:
+    runs-on: windows-latest
+    timeout-minutes: 5 # Optional timeout to avoid infinite hanging
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures the full repository is checked out
+
+      # Step 2: Confirm the working directory
+      - name: Show current workspace
+        run: |
+          echo "Current workspace is:"
+          echo ${{ github.workspace }}
+          dir
+
+      # Step 3: List all project files using PowerShell
+      - name: List all files in the repository
+        shell: pwsh
+        run: |
+          echo "Listing all files:"
+          Get-ChildItem -Path . -Recurse
+          
+      # Step 4: Execute the application
+      - name: Run eController.WebUI.exe
+        run: |
+          echo "Running eController.WebUI.exe..."
+          cd UI_3.3.4 # Adjusted to match the structure in your screenshot
+          .\eController.WebUI.exe

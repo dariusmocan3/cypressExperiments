@@ -1,0 +1,65 @@
+{
+	"Name": "All",
+	"Views": {
+		"All": {
+			"Name": "All",
+			"DisplayName": {
+				"en": "All",
+				"de": "Alle"
+			},
+			"DataDisplay": {
+				"Format": "Dialog"
+			},
+			"Channels": [
+				{
+					"Name": "Reflex -> eHub",
+					"DisplayName": {
+						"en": "Reflex -> eHub",
+						"de": "Reflex -> eHub"
+					},
+					"Channel": "ReflexToEHub",
+					"Position": {
+						"RowIndex": 1,
+						"ColIndex": 1
+					}
+				},
+				{
+					"Name": "eHub -> Reflex",
+					"DisplayName": {
+						"en": "eHub -> Reflex",
+						"de": "eHub -> Reflex"
+					},
+					"Channel": "eHubToReflex",
+					"Position": {
+						"RowIndex": 1,
+						"ColIndex": 1
+					}
+				},
+				{
+					"Name": "Errors",
+					"DisplayName": {
+						"en": "Errors",
+						"de": "Errors"
+					},
+					"Channel": "ReflexToEHub:Error",
+					"Position": {
+						"RowIndex": 1,
+						"ColIndex": 1
+					}
+				},
+				{
+					"Name": "Errors",
+					"DisplayName": {
+						"en": "Errors",
+						"de": "Errors"
+					},
+					"Channel": "eHubToReflex:Error",
+					"Position": {
+						"RowIndex": 1,
+						"ColIndex": 1
+					}
+				}
+			]
+		}
+	}
+}

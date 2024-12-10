@@ -1,0 +1,672 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>eMessenger</name>
+    </assembly>
+    <members>
+        <member name="T:eMessenger.AwaitableResponse`1">
+            <summary>Provides various behaviour for awaiting responses.</summary>
+            <typeparam name="TResponse">The single element response type.</typeparam>
+        </member>
+        <member name="M:eMessenger.AwaitableResponse`1.GetAsyncEnumerator(System.Threading.CancellationToken)">
+            <summary>Provides a streaming consumption of incoming answers.
+            Whereas <see cref="M:eMessenger.AwaitableResponse`1.AllResponses"/> will wait for all answers before completing,
+            here answers will be immediately available when received.</summary>
+            <param name="cancellationToken">Cancellation for this response. Remaining answer will be dropped.</param>
+        </member>
+        <member name="M:eMessenger.AwaitableResponse`1.FirstResponse">
+            <summary>Completes when receiving any answer from any client. First incoming answer wins, all other answers will be discarded</summary>
+            <exception cref="T:System.InvalidOperationException">Throws when no client is listening on this topic.</exception>
+        </member>
+        <member name="M:eMessenger.AwaitableResponse`1.FirstOrDefaultResponse">
+            <summary>Completes when receiving any answer from any client. First incoming answer wins, all other answers will be discarded</summary>
+        </member>
+        <member name="M:eMessenger.AwaitableResponse`1.SingleResponse">
+            <summary>Completes when receiving any answer from any client. First incoming answer wins, all other answers will be discarded</summary>
+            <exception cref="T:System.InvalidOperationException">Throws when no client is listening on this topic.</exception>
+        </member>
+        <member name="M:eMessenger.AwaitableResponse`1.SingleOrDefaultResponse">
+            <summary>Completes when receiving any answer from any client. First incoming answer wins, all other answers will be discarded</summary>
+        </member>
+        <member name="M:eMessenger.AwaitableResponse`1.AllResponses">
+            <summary>Waits for all answers from all listening peers.</summary>
+            <returns>A flattened response with all answers.</returns>
+        </member>
+        <member name="M:eMessenger.AwaitableResponse`1.GetAwaiter">
+            <summary>Provides an awaiter for a <see cref="T:eMessenger.AwaitableResponse`1"/>.</summary>
+        </member>
+        <member name="T:eMessenger.DependencyInjection.FilterNonScopedMessengerProvider">
+            <summary>
+            When added in a service collection chain it will prevent the <see cref="T:eMessenger.IMessenger"/> from being resolved.
+            </summary>
+        </member>
+        <member name="F:eMessenger.DependencyInjection.FilterNonScopedMessengerProvider.Instance">
+            <summary>
+            The instance of the <see cref="T:eMessenger.DependencyInjection.FilterNonScopedMessengerProvider"/>.
+            </summary>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.FilterNonScopedMessengerProvider.System#IServiceProvider#GetService(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedMessenger.eMessenger#IMessenger#AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedMessenger.eMessenger#IMessenger#AnswerAsync``2(System.String,System.Func{``0,``1})">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedMessenger.eMessenger#IMessenger#AnswerAsync``1(System.String,System.Func{System.Threading.Tasks.ValueTask{``0}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedMessenger.eMessenger#IMessenger#AnswerAsync``1(System.String,System.Func{``0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedMessenger.eMessenger#IMessenger#ListenAsync``1(System.String,System.Func{``0,System.Threading.Tasks.ValueTask})">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedMessenger.eMessenger#IMessenger#ListenAsync``1(System.String,System.Action{``0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedMessenger.eMessenger#IMessenger#ListenAsync(System.String,System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eMessenger.DependencyInjection.ScopedTopicMessenger">
+            <summary>
+            Scoped lifetime variant of the <see cref="T:eMessenger.DependencyInjection.TopicMessenger"/>.<br/>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedTopicMessenger.#ctor(eMessenger.IScopedMessenger)">
+            <inheritdoc cref="M:eMessenger.DependencyInjection.TopicMessenger.#ctor(eMessenger.IMessenger)" />
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ScopedTopicMessenger.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:eMessenger.DependencyInjection.ServiceCollectionExtensions">
+            <summary>Extensions methods for Dependency Injection.</summary>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.ServiceCollectionExtensions.AddEMessenger(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds the <see cref="T:eMessenger.IMessenger"/> and <see cref="T:eMessenger.IScopedMessenger"/> into dependency context.
+            </summary>
+            <param name="services">The service container.</param>
+            <param name="configuration">Optional configuration of submodules.</param>
+            <returns>The original service container, after the operation has completed.</returns>
+        </member>
+        <member name="T:eMessenger.DependencyInjection.TopicMessenger">
+            <summary>
+            Utility for providing custom <see cref="T:eMessenger.IMessenger"/> implementations that modify the topic before each call.<br/>
+            </summary>
+        </member>
+        <member name="P:eMessenger.DependencyInjection.TopicMessenger.Messenger">
+            <summary>
+            The wrapped <see cref="T:eMessenger.IMessenger"/>.
+            </summary>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.TopicMessenger.#ctor(eMessenger.IMessenger)">
+            <summary>
+            Creates a wrapper around the given <see cref="T:eMessenger.IMessenger"/> that modifies the topic before each call.<br/>
+            </summary>
+            <param name="messenger">The <see cref="T:eMessenger.IMessenger"/> to wrap.</param>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.TopicMessenger.AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.TopicMessenger.AskAsync``2(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.DependencyInjection.TopicMessenger.SendAsync``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eMessenger.Discovery.IPeerFinder">
+            <summary>
+            A service that can find peers on its protocol.
+            </summary>
+        </member>
+        <member name="E:eMessenger.Discovery.IPeerFinder.OnPeerFound">
+            <summary>
+            The event is raised whenever a peer is found.
+            This can occur by polling or by receiving an announcement and is left to the implementation when to raise.
+            </summary>
+            <remarks>
+            Note that this can be raised for already known peers.
+            </remarks>
+        </member>
+        <member name="T:eMessenger.Discovery.IProtocolAnnouncement">
+            <summary>
+            Used for announcing a protocol to the network.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Discovery.IProtocolAnnouncement.ProtocolTag">
+            <summary>
+            This tag must match the <see cref="P:eMessenger.Network.IConnectionServer.ProtocolTag"/> of the server
+            to find the matching server to parse the announcement.
+            </summary>
+            <seealso cref="T:eMessenger.Network.ProtocolTag"/>
+        </member>
+        <member name="P:eMessenger.Discovery.IProtocolAnnouncement.Version">
+            <summary>
+            The version of the protocol server.
+            Version numbers are considered backwards compatible.
+            This means that the server should be able to handle all clients with a lower or equal version number.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Discovery.IProtocolAnnouncement.PayloadLength">
+            <summary>
+            The length of the payload in bytes.
+            </summary>
+        </member>
+        <member name="M:eMessenger.Discovery.IProtocolAnnouncement.Write(System.Span{System.Byte})">
+            <summary>
+            Writes the protocol announcement to the given buffer.
+            </summary>
+            <remarks>
+            On receive the buffer will be passed to <see cref="M:eMessenger.Network.IConnectionServer.TryParseAnnouncement(System.UInt16,System.ReadOnlySpan{System.Byte},eMessenger.Discovery.IProtocolAnnouncement@)"/>.
+            </remarks>
+        </member>
+        <member name="T:eMessenger.Discovery.PeerAnnouncementEventArgs">
+            <summary>
+            Endpoint data of a peer.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Discovery.PeerAnnouncementEventArgs.PeerId">
+            <summary>
+            A <see cref="T:eMessenger.Discovery.IPeerFinder"/> may set <see cref="T:eMessenger.Network.PeerUid"/> to identify already known or connected peers.<br/>
+            This can be used to avoid duplicate connections before the <see cref="T:eMessenger.Network.IPeerConnectionManager"/> rejects the connection.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Discovery.PeerAnnouncementEventArgs.ConnectionName">
+            <summary>
+            A unique name for the connection to a specific peer.<br/>
+            The <see cref="T:eMessenger.Network.IPeerConnectionManager"/> will use this name to ensure that only one connection with the same name is established.<br/>
+            </summary>
+        </member>
+        <member name="P:eMessenger.Discovery.PeerAnnouncementEventArgs.Workgroup">
+            <summary>
+            The workgroups of the peer.<br/>
+            The announcement will be ignored if none of the workgroups match the local workgroups.<br/>
+            </summary>
+        </member>
+        <member name="P:eMessenger.Discovery.PeerAnnouncementEventArgs.Protocols">
+            <summary>
+            A list of protocols that the peer supports.<br/>
+            The <see cref="T:eMessenger.Network.IConnectionServerManager"/> will forward this to <see cref="T:eMessenger.Network.IConnectionServer"/> implementations that support the protocol.
+            </summary>
+        </member>
+        <member name="F:eMessenger.Dispatching.RoutingState._subscriptionsFromPeers">
+            <summary>List of which peers listen on a certain topic</summary>
+        </member>
+        <member name="F:eMessenger.Dispatching.RoutingState._syncedSubscriptions">
+            <summary>List to which peers we've sent our topic listens</summary>
+        </member>
+        <member name="M:eMessenger.Dispatching.RoutingState.LockView.RemoveHandler(eMessenger.Dispatching.RegistrationToken)">
+            <summary>
+            
+            </summary>
+            <param name="token"></param>
+            <returns>true if this removed the last handler on this topic. false otherwise.</returns>
+        </member>
+        <member name="T:eMessenger.Dispatching.Util.RawMessage">
+            <summary>
+            When used as TRequest or TResponse type, the <see cref="P:eMessenger.Dispatching.Util.RawMessage.Data"/> array will be used as the message content without serialization.
+            </summary>
+        </member>
+        <member name="M:eMessenger.Dispatching.Util.RawMessage.#ctor(System.Byte[])">
+            <summary>
+            When used as TRequest or TResponse type, the <see cref="P:eMessenger.Dispatching.Util.RawMessage.Data"/> array will be used as the message content without serialization.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Dispatching.Util.RawMessage.Data">
+            <summary>The message content</summary>
+        </member>
+        <member name="M:eMessenger.Dispatching.Util.RawMessage.op_Implicit(System.Byte[])~eMessenger.Dispatching.Util.RawMessage">
+            <summary>Implicitly converts a byte array to a <see cref="T:eMessenger.Dispatching.Util.RawMessage"/>.</summary>
+        </member>
+        <member name="T:eMessenger.IMessenger">
+            <summary>
+            The core interface to send and receive messages.<br/>
+            Registrations here will be held through the lifetime of the application or until manually unregistered.
+            </summary>
+            <remarks>This interface is thread-safe.</remarks>
+        </member>
+        <member name="P:eMessenger.IMessenger.Router">
+            <summary>Gets the router on which this messenger is operating.</summary>
+        </member>
+        <member name="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})">
+            <summary>Registers a message handler on the specified topic.
+            The handler returns a response which can be collected by an 'Ask' request.</summary>
+            <typeparam name="TRequest">The type incoming messages will be deserialized to for the handler.</typeparam>
+            <typeparam name="TResponse">The response type of the handler.</typeparam>
+            <param name="topic">The topic to listen on.</param>
+            <param name="action">The handler which will be called for each message.</param>
+            <returns>A token which can be disposed to unregister this handler again.</returns>
+        </member>
+        <member name="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,``1})">
+            <inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})"/>
+        </member>
+        <member name="M:eMessenger.IMessenger.AnswerAsync``1(System.String,System.Func{System.Threading.Tasks.ValueTask{``0}})">
+            <inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})"/>
+        </member>
+        <member name="M:eMessenger.IMessenger.AnswerAsync``1(System.String,System.Func{``0})">
+            <inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})"/>
+        </member>
+        <member name="M:eMessenger.IMessenger.ListenAsync``1(System.String,System.Func{``0,System.Threading.Tasks.ValueTask})">
+            <summary>Registers a message handler on the specified topic.</summary>
+            <typeparam name="TNotification"><inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})" path="/typeparam[@name='TRequest']"/></typeparam>
+            <inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})"/>
+        </member>
+        <member name="M:eMessenger.IMessenger.ListenAsync``1(System.String,System.Action{``0})">
+            <inheritdoc cref="M:eMessenger.IMessenger.ListenAsync``1(System.String,System.Func{``0,System.Threading.Tasks.ValueTask})"/>
+        </member>
+        <member name="M:eMessenger.IMessenger.ListenAsync(System.String,System.Action)">
+            <inheritdoc cref="M:eMessenger.IMessenger.ListenAsync``1(System.String,System.Func{``0,System.Threading.Tasks.ValueTask})"/>
+        </member>
+        <member name="M:eMessenger.IMessenger.SendAsync``1(System.String,``0)">
+            <summary>Sends a message to all handlers registered on the specified topic.<br/>
+            Both 'Listen' and 'Answer' handlers will receive this message.<br/>
+            Responses from 'Answer' handlers will not be serialized nor sent back over the network.</summary>
+            <typeparam name="TNotification">Type of the object to send. This type will be used for serialization.</typeparam>
+            <param name="topic">The topic to send to.</param>
+            <param name="notification">The object to send.</param>
+            <returns>A task which completes when the messages has been queued.</returns>
+            <remarks>Although this is a fire-and-forget operation, the returned task must be awaited to prevent overloading the network queue.</remarks>
+        </member>
+        <member name="M:eMessenger.IMessenger.SendAsync(System.String)">
+            <inheritdoc cref="M:eMessenger.IMessenger.SendAsync``1(System.String,``0)"/>
+        </member>
+        <member name="M:eMessenger.IMessenger.AskAsync``2(System.String,``0)">
+            <summary>Sends a message to all handlers registered on the specified topic and can be awaited to collect the responses.<br/>
+            Both 'Listen' and 'Answer' handlers will receive this message.<br/>
+            'Listen' handlers will not contribute to the response collection but will be waited for to finish like all normal 'Answer' handlers.</summary>
+            <typeparam name="TRequest"><inheritdoc cref="M:eMessenger.IMessenger.SendAsync``1(System.String,``0)"/></typeparam>
+            <typeparam name="TResponse">Responses will be deserialized to this type.</typeparam>
+            <param name="topic"><inheritdoc cref="M:eMessenger.IMessenger.SendAsync``1(System.String,``0)" path="/param[@name='topic']"/></param>
+            <param name="request"><inheritdoc cref="M:eMessenger.IMessenger.SendAsync``1(System.String,``0)" path="/param[@name='notification']"/></param>
+            <returns>An asynchronous response collector.</returns>
+            <remarks>
+            The <typeparamref name="TResponse"/> type doesn't need to match the response type of an answering handler,
+            however doing so can improve performance for in-process messages sending.<br/>
+            Also the deserializer can throw an exception if the response and the target deserialization type are not compatible.
+            </remarks>
+            <seealso cref="T:eMessenger.AwaitableResponse`1"/>
+        </member>
+        <member name="M:eMessenger.IMessenger.AskAsync``1(System.String)">
+            <remarks>
+            The <typeparamref name="TResponse"/> type doesn't need to match the response type of an answering handler,
+            however doing so can improve performance for in-process messages sending.<br/>
+            Also the deserializer can throw an exception if the response and the target deserialization type are not compatible.
+            </remarks>
+            <inheritdoc cref="M:eMessenger.IMessenger.AskAsync``2(System.String,``0)"/>
+        </member>
+        <member name="T:eMessenger.MessengerSyncExtensions">
+            <summary>
+            Blocking extensions for <see cref="T:eMessenger.IMessenger"/>.
+            </summary>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Answer``2(eMessenger.IMessenger,System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})">
+            <inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})" />
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Answer``2(eMessenger.IMessenger,System.String,System.Func{``0,``1})">
+            <inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``2(System.String,System.Func{``0,``1})"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Answer``1(eMessenger.IMessenger,System.String,System.Func{System.Threading.Tasks.ValueTask{``0}})">
+            <inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``1(System.String,System.Func{System.Threading.Tasks.ValueTask{``0}})"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Answer``1(eMessenger.IMessenger,System.String,System.Func{``0})">
+            <inheritdoc cref="M:eMessenger.IMessenger.AnswerAsync``1(System.String,System.Func{``0})"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Listen``1(eMessenger.IMessenger,System.String,System.Func{``0,System.Threading.Tasks.ValueTask})">
+            <inheritdoc cref="M:eMessenger.IMessenger.ListenAsync``1(System.String,System.Func{``0,System.Threading.Tasks.ValueTask})"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Listen``1(eMessenger.IMessenger,System.String,System.Action{``0})">
+            <inheritdoc cref="M:eMessenger.IMessenger.ListenAsync``1(System.String,System.Action{``0})"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Listen(eMessenger.IMessenger,System.String,System.Action)">
+            <inheritdoc cref="M:eMessenger.IMessenger.ListenAsync(System.String,System.Action)"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Send``1(eMessenger.IMessenger,System.String,``0)">
+            <inheritdoc cref="M:eMessenger.IMessenger.SendAsync``1(System.String,``0)"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.Send(eMessenger.IMessenger,System.String)">
+            <inheritdoc cref="M:eMessenger.IMessenger.SendAsync(System.String)"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.FirstResponseBlocking``1(eMessenger.AwaitableResponse{``0})">
+            <inheritdoc cref="M:eMessenger.AwaitableResponse`1.FirstResponse"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.SingleResponseBlocking``1(eMessenger.AwaitableResponse{``0})">
+            <inheritdoc cref="M:eMessenger.AwaitableResponse`1.SingleResponse"/>
+        </member>
+        <member name="M:eMessenger.MessengerSyncExtensions.AllResponsesBlocking``1(eMessenger.AwaitableResponse{``0})">
+            <inheritdoc cref="M:eMessenger.AwaitableResponse`1.AllResponses"/>
+        </member>
+        <member name="T:eMessenger.IRegistrationToken">
+            <summary>
+            Can be disposed to unregister the handler.
+            </summary>
+        </member>
+        <member name="M:eMessenger.IRegistrationToken.op_Addition(eMessenger.IRegistrationToken,eMessenger.IRegistrationToken)">
+            <inheritdoc cref="M:eMessenger.RegistrationTokenExtensions.Combine(eMessenger.IRegistrationToken,eMessenger.IRegistrationToken)" />
+        </member>
+        <member name="T:eMessenger.IScopedMessenger">
+            <summary>
+            Can be used the same as the <see cref="T:eMessenger.IMessenger"/> to send and receive messages.<br/>
+            Registrations here will be held until the end of the scope lifetime or until manually unregistered.
+            </summary>
+            <remarks>This interface is threadsafe.</remarks>
+        </member>
+        <member name="P:eMessenger.Network.ConnectOptions.ExpectedPeerId">
+            <summary>
+            The <see cref="T:eMessenger.Network.PeerUid"/> of the peer we want to connect to.<br/>
+            When <see langword="null"/> the connection will accept any peer that responds to the connection request.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Network.ConnectOptions.ConnectionName">
+            <summary>A unique name for a connection with a peer. Only one connection with this name can exist at a time.</summary>
+        </member>
+        <member name="P:eMessenger.Network.ConnectOptions.ReplaceIfConnectionNameExists">
+            <summary>
+            When <see langword="false"/> an existing connection can adopts this <see cref="P:eMessenger.Network.ConnectOptions.ConnectionName"/>.<br/>
+            When <see langword="true"/> an existing connection will be closed and this connection will be established.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Network.ConnectOptions.Protocols">
+            <summary>The protocols that the other peer supports.</summary>
+        </member>
+        <member name="T:eMessenger.Network.PeerConnectionEventArgs">
+            <summary>
+            Whenever a <see cref="T:eMessenger.Network.IConnectionServer"/> has a new successful connection, this event data will be passed by event.
+            A connection manager can then decide to accept or reject the connection.
+            </summary>
+        </member>
+        <member name="M:eMessenger.Network.PeerConnectionEventArgs.#ctor(eMessenger.Network.IPeerConnection)">
+            <summary>
+            Whenever a <see cref="T:eMessenger.Network.IConnectionServer"/> has a new successful connection, this event data will be passed by event.
+            A connection manager can then decide to accept or reject the connection.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Network.PeerConnectionEventArgs.PeerConnection">
+            <summary>The new <see cref="T:eMessenger.Network.IPeerConnection"/> that was established.</summary>
+        </member>
+        <member name="P:eMessenger.Network.PeerConnectionEventArgs.Accept">
+            <summary>
+            Current accept consensus.<br/>
+            Will stay <see langword="false"/> if at least one event listener rejects the connection.
+            If rejected, the event raiser must close and clean up the presented <see cref="P:eMessenger.Network.PeerConnectionEventArgs.PeerConnection"/>.
+            </summary>
+        </member>
+        <member name="M:eMessenger.Network.PeerConnectionEventArgs.Reject">
+            <summary>Sets the <see cref="P:eMessenger.Network.PeerConnectionEventArgs.Accept"/> to <see langword="false"/> when not set yet.</summary>
+        </member>
+        <member name="M:eMessenger.Network.PeerConnectionEventArgs.Accepted">
+            <summary>Sets the <see cref="P:eMessenger.Network.PeerConnectionEventArgs.Accept"/> to <see langword="true"/> when not set yet.</summary>
+        </member>
+        <member name="T:eMessenger.Network.PeerUid">
+            <summary>A unique identifier for each client within the eMessenger network.</summary>
+            <param name="Uid">Internal 8 byte key blob.</param>
+        </member>
+        <member name="M:eMessenger.Network.PeerUid.#ctor(System.UInt64)">
+            <summary>A unique identifier for each client within the eMessenger network.</summary>
+            <param name="Uid">Internal 8 byte key blob.</param>
+        </member>
+        <member name="P:eMessenger.Network.PeerUid.Uid">
+            <summary>Internal 8 byte key blob.</summary>
+        </member>
+        <member name="M:eMessenger.Network.PeerUid.#ctor(System.ReadOnlySpan{System.Byte})">
+            <summary>Reads a <see cref="T:eMessenger.Network.PeerUid"/> from a binary buffer.</summary>
+            <remarks>Requires the <paramref name="bytes"/> span to be at least 8 bytes long.</remarks>
+            <param name="bytes">The binary buffer to read from.</param>
+        </member>
+        <member name="M:eMessenger.Network.PeerUid.ToString">
+            <summary>Formats to the <see cref="T:eMessenger.Network.PeerUid"/> to string.
+            The identifier is guaranteed to be exactly 16 characters long.</summary>
+        </member>
+        <member name="M:eMessenger.Network.PeerUid.New">
+            <summary>Creates a random <see cref="T:eMessenger.Network.PeerUid"/>.</summary>
+        </member>
+        <member name="M:eMessenger.Network.PeerUid.CopyTo(System.Span{System.Byte})">
+            <summary>
+            Writes the <see cref="T:eMessenger.Network.PeerUid"/> to a binary buffer.
+            </summary>
+            <remarks>
+            Requires the <paramref name="data"/> span to be at least 8 bytes long.
+            </remarks>
+            <param name="data">The buffer to write to</param>
+        </member>
+        <member name="M:eMessenger.Network.PeerUid.CompareTo(eMessenger.Network.PeerUid)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eMessenger.Network.ProtocolTag">
+            <summary>
+            A 4 bytes tag used to uniquely identify a protocol.
+            </summary>
+            <remarks>
+            For easy debugging the tag is displayed as a 4 character string, so using ASCII is recommended.
+            </remarks>
+        </member>
+        <member name="M:eMessenger.Network.ProtocolTag.#ctor(System.UInt32)">
+            <summary>
+            A 4 bytes tag used to uniquely identify a protocol.
+            </summary>
+            <remarks>
+            For easy debugging the tag is displayed as a 4 character string, so using ASCII is recommended.
+            </remarks>
+        </member>
+        <member name="M:eMessenger.Network.ProtocolTag.#ctor(System.String)">
+            <summary>
+            Creates a new <see cref="T:eMessenger.Network.ProtocolTag"/> from the given tag.
+            The tag must be 4 characters long and ASCII.
+            </summary>
+            <param name="tag">The tag.</param>
+        </member>
+        <member name="M:eMessenger.Network.ProtocolTag.#ctor(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Creates a new <see cref="T:eMessenger.Network.ProtocolTag"/> from the given tag.
+            The tag must be 4 bytes long.
+            </summary>
+            <param name="tag"></param>
+        </member>
+        <member name="M:eMessenger.Network.ProtocolTag.ToString">
+            <summary>Returns the tag as a 4 character string.</summary>
+        </member>
+        <member name="M:eMessenger.Network.ProtocolTag.CopyTo(System.Span{System.Byte})">
+            <summary>Writes the tag to the given buffer. The buffer must be at least 4 bytes long.</summary>
+        </member>
+        <member name="M:eMessenger.Network.Tcp.TcpConnectionServerAnnouncementV1.Equals(eMessenger.Discovery.IProtocolAnnouncement)">
+            <inheritdoc />
+        </member>
+        <member name="M:eMessenger.Network.Tcp.TcpConnectionServerAnnouncementV1.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:eMessenger.Network.Tcp.TcpConnectionServerAnnouncementV2.Equals(eMessenger.Discovery.IProtocolAnnouncement)">
+            <inheritdoc />
+        </member>
+        <member name="M:eMessenger.Network.Tcp.TcpConnectionServerAnnouncementV2.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:eMessenger.Network.Topic">
+            <summary>
+            Represents a topic name and its message kind.<br/>
+            Topics are not specific to the eMessenger protocol and can be formatted to bridge to external protocols.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Network.Topic.Key">
+            <summary>The plain topic name.</summary>
+        </member>
+        <member name="P:eMessenger.Network.Topic.RequestId">
+            <summary>The id used for request/reponse matching.</summary>
+            <remarks>If the topic is <see cref="F:eMessenger.Network.TopicKind.Message"/> the value is undefined.</remarks>
+        </member>
+        <member name="P:eMessenger.Network.Topic.Kind">
+            <summary>The topic kind.</summary>
+        </member>
+        <member name="P:eMessenger.Network.Topic.IsRequest">
+            <summary>Gets whether the topic is a request topic.</summary>
+        </member>
+        <member name="P:eMessenger.Network.Topic.IsResponse">
+            <summary>Gets whether the topic is a response topic.</summary>
+        </member>
+        <member name="M:eMessenger.Network.Topic.#ctor(System.String)">
+            <summary>Creates a new message topic</summary>
+        </member>
+        <member name="M:eMessenger.Network.Topic.#ctor(System.String,System.UInt64,eMessenger.Network.TopicKind)">
+            <summary>Creates a new topic.</summary>
+            <remarks>If the topic is a request or response topic, a request id must be provided.</remarks>
+            <param name="topic">The plain topic name</param>
+            <param name="requestId">The request id. Must be less than 2^60.</param>
+            <param name="request">The topic kind</param>
+        </member>
+        <member name="M:eMessenger.Network.Topic.TryParse(System.ReadOnlySpan{System.Byte})">
+            <summary>Parses the topic from a buffer</summary>
+            <returns>The parsed topic or <see langword="null"/> if the buffer is empty or invalid.</returns>
+        </member>
+        <member name="M:eMessenger.Network.Topic.Write(System.Span{System.Byte})">
+            <summary>Formats the topic to the given buffer.</summary>
+            <returns>The number of bytes written to the buffer.</returns>
+            <exception cref="T:System.FormatException">The buffer is too small to fit the topic.</exception>
+        </member>
+        <member name="M:eMessenger.Network.Topic.AsRequest(System.Nullable{System.UInt64})">
+            <summary>Converts a topic to a request topic</summary>
+            <remarks>If the topic is a message topic, a request id must be provided.</remarks>
+            <exception cref="T:System.InvalidOperationException">The topic is a message topic and no request id was provided.</exception>
+        </member>
+        <member name="M:eMessenger.Network.Topic.AsResponse(System.Nullable{System.UInt64})">
+            <summary>Converts a topic to a response topic</summary>
+            <remarks>If the topic is a message topic, a request id must be provided.</remarks>
+            <exception cref="T:System.InvalidOperationException">The topic is a message topic and no request id was provided.</exception>
+        </member>
+        <member name="M:eMessenger.Network.Topic.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Network.Topic.Equals(eMessenger.Network.Topic)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Network.Topic.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Network.Topic.op_Equality(eMessenger.Network.Topic,eMessenger.Network.Topic)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Network.Topic.op_Inequality(eMessenger.Network.Topic,eMessenger.Network.Topic)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Network.Topic.ToString">
+            <summary>Creates a semantic representation of the Topic</summary>
+        </member>
+        <member name="M:eMessenger.Network.Topic.Join(System.String[])">
+            <summary>Concatenates the given parts into a topic string.</summary>
+            <param name="parts">The parts to concatenate.</param>
+        </member>
+        <member name="T:eMessenger.NullRegistrationToken">
+            <summary>
+            Represents a registration token that does nothing when disposed.<br/>
+            Useful to avoid <see langword="null"/> checks when disposing a registration token.
+            </summary>
+        </member>
+        <member name="P:eMessenger.NullRegistrationToken.Instance">
+            <summary>
+            Gets the singleton instance of <see cref="T:eMessenger.NullRegistrationToken"/>.
+            </summary>
+        </member>
+        <member name="M:eMessenger.NullRegistrationToken.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:eMessenger.RegistrationTokenExtensions">
+            <summary>
+            Extension methods for <see cref="T:eMessenger.IRegistrationToken"/>.
+            </summary>
+        </member>
+        <member name="M:eMessenger.RegistrationTokenExtensions.Combine(eMessenger.IRegistrationToken,eMessenger.IRegistrationToken)">
+            <summary>Creates a new <see cref="T:eMessenger.IRegistrationToken"/> that will dispose both tokens when disposed.</summary>
+            <param name="first">First token</param>
+            <param name="second">Second token</param>
+            <returns>The new combined token</returns>
+        </member>
+        <member name="M:eMessenger.RegistrationTokenExtensions.Combine(eMessenger.IRegistrationToken[])">
+            <summary>Creates a new <see cref="T:eMessenger.IRegistrationToken"/> that will dispose all tokens when disposed.</summary>
+            <param name="registrationTokens">The list of tokens to combine</param>
+            <returns>The new combined token</returns>
+        </member>
+        <member name="T:eMessenger.ScopedMessengerExtensions">
+            <summary>
+            Extensions to create <see cref="T:eMessenger.IScopedMessenger"/> instances.
+            </summary>
+        </member>
+        <member name="M:eMessenger.ScopedMessengerExtensions.CreateScopedMessenger(eMessenger.IMessenger)">
+            <summary>
+            Creates a new scoped messenger whose lifetime can be manually controlled.<br/>
+            Disposing the messenger will unregister all handlers registered through it.
+            </summary>
+            <param name="messenger">Any messenger. The new scoped messenger will have no relation to the original messenger, and is not nested.
+            Likewise subsequently created scoped messengers will not be related.</param>
+            <returns>A new scoped messenger.</returns>
+        </member>
+        <member name="P:eMessenger.Serialization.EMsgJson.ImmutableArrayString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Serialization.EMsgJson.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Serialization.EMsgJson.StringArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Serialization.EMsgJson.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:eMessenger.Serialization.EMsgJson.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:eMessenger.Serialization.EMsgJson.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Serialization.EMsgJson.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Serialization.EMsgJson.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Serialization.JsonMsgSerializer.Deserialize``1(System.ReadOnlyMemory{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:eMessenger.Serialization.JsonMsgSerializer.Serialize``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eMessenger.Tests.TestingMessenger">
+            <summary>
+            Local in-memory messenger for testing purposes which does not connect to any network.<br/>
+            Serialization and dispatching logic is identical to the normal Messenger.
+            </summary>
+        </member>
+        <member name="M:eMessenger.Tests.TestingMessenger.Create(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>Each new <see cref="T:eMessenger.IMessenger"/> instance created by this method will not communicate with others.</summary>
+            <param name="loggerFactory"><see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> for optional logging.</param>
+            <returns>A new testing <see cref="T:eMessenger.IMessenger"/> instance.</returns>
+        </member>
+        <member name="M:eMessenger.Tests.TestingMessenger.CreateScroped(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>Each new <see cref="T:eMessenger.IScopedMessenger"/> instance created by this method will not communicate with others.</summary>
+            <param name="loggerFactory"><see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> for optional logging.</param>
+            <returns>A new testing <see cref="T:eMessenger.IScopedMessenger"/> instance.</returns>
+        </member>
+        <member name="M:eMessenger.Tests.TestingMessenger.CreateScoped(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>Each new <see cref="T:eMessenger.IScopedMessenger"/> instance created by this method will not communicate with others.</summary>
+            <param name="loggerFactory"><see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> for optional logging.</param>
+            <returns>A new testing <see cref="T:eMessenger.IScopedMessenger"/> instance.</returns>
+        </member>
+        <member name="P:eController.Util.Tasks.AwaitableAutoResetEvent.ThrowOnCancellation">
+            <summary>
+            If <see langword="true"/>, <see cref="M:eController.Util.Tasks.AwaitableAutoResetEvent.WaitAsync(System.TimeSpan,System.Threading.CancellationToken)"/> will throw a <see cref="T:System.Threading.Tasks.TaskCanceledException"/> when the <see cref="T:System.Threading.CancellationToken"/> is canceled.
+            </summary>
+            <remarks>
+            Default is <see langword="true"/>.
+            </remarks>
+        </member>
+    </members>
+</doc>

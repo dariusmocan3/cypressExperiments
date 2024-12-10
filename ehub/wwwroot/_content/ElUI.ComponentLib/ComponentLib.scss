@@ -1,0 +1,36 @@
+@import '_colors.scss';
+@import '_typography.scss';
+
+.mud-dialog-content {
+    border: 1px solid #D6DBDF !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 24px !important;
+}
+
+.mud-dialog-title .mud-typography-h2 {
+    font-weight: 500 !important;
+    font-size: 1.25rem !important;
+}
+
+/* Components */
+@import '../Components/Button/ElButton.razor.scss';
+@import '../Components/Table/ElTable.razor.scss';
+@import '../Components/BinLocation/ElBinLocation.razor.scss';
+@import '../Components/Alert/ElAlert.razor.scss';
+@import '../Components/DatePicker/ElDateRangePicker.razor.scss';
+@import '../Components/Slider/ElSlider.razor.scss';
+@import '../Components/Radio/ElRadio.razor.scss';
+@import '../Components/CheckBox/ElCheckBox.razor.scss';
+@import '../Components/Chip/ElChip.razor.scss';
+@import '../Components/Paper/ElPaper.razor.scss';
+@import '../Components/Pagination/ElPagination.razor.scss';
+@import '../Components/Stack/ElStack.razor.scss';
+@import '../Components/SnackbarProvider/ElSnackbarProvider.razor.scss';
+@import '../Components/TextField/ElTextField.razor.scss';
+@import '../Components/MegaMenuItem/ElMegaMenuItem.razor.scss';
+@import '../Components/BigText/ElBigText.razor.scss';
+@import '../Components/AppBarMenu/ElAppBarButton.razor.scss';
+@import '../Components/AppBar/ElAppBar.razor.scss';
+@import '../Components/Dialog/ElDialog.razor.scss';
+@import '../Components/Dialog/ElDeleteDialog.razor.scss';

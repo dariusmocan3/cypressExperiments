@@ -1,0 +1,243 @@
+{
+    "Name": "Combined",
+    "Connectors": [
+        "AtPlcConnector",
+        "eControllerConnector",
+        "PrinterConnector"
+    ],
+    "Views": {
+        "Combined": {
+            "Name": "All",
+            "DisplayName": {
+                "en": "All",
+                "de": "All"
+            },
+            "Channels": [
+                {
+                    "Name": "AtPlc Receiver",
+                    "DisplayName": {
+                        "en": "AtPlc Receiver",
+                        "de": "AtPlc Receiver"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "AtPlcConnector",
+                    "Channel": "Receiver",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "AtPlc ReceiverAck",
+                    "DisplayName": {
+                        "en": "AtPlc ReceiverAck",
+                        "de": "AtPlc ReceiverAck"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "AtPlcConnector",
+                    "Channel": "ReceiverAck",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "AtPlc ReceiverToMfc",
+                    "DisplayName": {
+                        "en": "AtPlc ReceiverToMfc",
+                        "de": "AtPlc ReceiverToMfc"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "AtPlcConnector",
+                    "Channel": "ReceiverToMfc",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "AtPlc Sender",
+                    "DisplayName": {
+                        "en": "AtPlc Sender",
+                        "de": "AtPlc Sender"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "AtPlcConnector",
+                    "Channel": "Sender",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "AtPlc SenderAck",
+                    "DisplayName": {
+                        "en": "AtPlc SenderAck",
+                        "de": "AtPlc SenderAck"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "AtPlcConnector",
+                    "Channel": "SenderAck",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "ErrorChannel",
+                    "DisplayName": {
+                        "en": "ErrorChannel",
+                        "de": "ErrorChannel"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "AtPlcConnector",
+                    "Channel": "ErrorChannel",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "eHubToEController",
+                    "DisplayName": {
+                        "en": "eHubToEController",
+                        "de": "eHubToEController"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "eControllerConnector",
+                    "Channel": "eHubToEController",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "eControllerToEHub",
+                    "DisplayName": {
+                        "en": "eControllerToEHub",
+                        "de": "eControllerToEHub"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "eControllerConnector",
+                    "Channel": "eControllerToEHub",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "ErrorChannel",
+                    "DisplayName": {
+                        "en": "ErrorChannel",
+                        "de": "ErrorChannel"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "eControllerConnector",
+                    "Channel": "eHubToEController:Error",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "ErrorChannel",
+                    "DisplayName": {
+                        "en": "ErrorChannel",
+                        "de": "ErrorChannel"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "eControllerConnector",
+                    "Channel": "eControllerToEHub:Error",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "Printer Sender",
+                    "DisplayName": {
+                        "en": "Printer Sender",
+                        "de": "Printer Sender"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "PrinterConnector",
+                    "Channel": "Sender",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "Printer SenderAck",
+                    "DisplayName": {
+                        "en": "Printer SenderAck",
+                        "de": "Printer SenderAck"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "PrinterConnector",
+                    "Channel": "SenderAck",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "Error Channel",
+                    "DisplayName": {
+                        "en": "Error Channel",
+                        "de": "Error Channel"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "PrinterConnector",
+                    "Channel": "Sender:Error",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                },
+                {
+                    "Name": "Error Channel",
+                    "DisplayName": {
+                        "en": "Error Channel",
+                        "de": "Error Channel"
+                    },
+                    "DataDisplay": {
+                        "Format": "Dialog"
+                    },
+                    "Connector": "PrinterConnector",
+                    "Channel": "Sender_Ack:Error",
+                    "Position": {
+                        "RowIndex": 1,
+                        "ColIndex": 1
+                    }
+                }
+            ]
+        }
+    }
+}

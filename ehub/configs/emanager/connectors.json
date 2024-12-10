@@ -1,0 +1,138 @@
+{
+	"eManagerConnector": {
+		"Type": "EManagerConnector",
+		"Enabled": true,
+		"PacketTransfer": {
+			"DbPath": ".\\databases\\eManagerDb.db",
+			"ChannelGroups": {
+				"Incoming": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 1,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"Channels": [
+						"eManagerToEHub"
+					]
+				},
+				"Outgoing": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 1,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"Channels": [
+						"eHubToEManager"
+					]
+				},
+				"Errors": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 1,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"CanResend": false,
+					"Channels": [
+						"eManagerToEHub:Error",
+						"eHubToEManager:Error"
+					]
+				}
+			}
+		},
+		"HttpIncoming": {
+			"Kestrel": {
+				"Endpoints": {
+					"Https": {
+						"Url": "https://ehub-prd.santeservice.asso.fr:36000",
+						"Certificate": {
+							"Path": "ehub.pfx",
+							"Password": "FSS"
+						}
+					}
+				}
+			},
+			"Auth": {
+				"Basic": {
+					"DummyUsers": [
+						{
+							"Username": "adm",
+							"Password": "2040"
+						}
+					]
+				}
+			},
+			"Endpoints": [
+				{
+					"Path": "/api/bc",
+					"Topic": "FSS.BalanceCorrection",
+					"HttpMethod": "POST",
+					"ContentType": "application/json"
+				},
+				{
+					"Path": "/api/cp",
+					"Topic": "FSS.ConfirmedPick",
+					"HttpMethod": "POST",
+					"ContentType": "application/json"
+				},
+				{
+					"Path": "/api/pg",
+					"Topic": "FSS.PlacedGoods",
+					"HttpMethod": "POST",
+					"ContentType": "application/json"
+				},
+				{
+					"Path": "/api/pas",
+					"Topic": "FSS.PickActivityStarted",
+					"HttpMethod": "POST",
+					"ContentType": "application/json"
+				}
+			]
+		},
+		"HttpOutgoing": {
+			"Api": {
+				"eManager": {
+					"BaseAddress": "https://emanager-prd.santeservice.asso.fr",
+					"Authorization": {
+						"Type": "Basic",
+						"Basic": {
+							"Username": "adm",
+							"Password": "2040"
+						}
+					}
+				}
+			},
+			"Endpoints": [
+				{
+					"Api": "eManager",
+					"Path": "/api/products/import",
+					"Topic": "FSS.ProductInformation",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "ProductInformation"
+				},
+				{
+					"Api": "eManager",
+					"Path": "/api/goodsreceivals/import",
+					"Topic": "FSS.GoodsReceival",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "GoodsReceival"
+				},
+				{
+					"Api": "eManager",
+					"Path": "/api/picklists/import",
+					"Topic": "FSS.PickList",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "PickList"
+				},
+				{
+					"Api": "eManager",
+					"Path": "/api/inventorycounts/import",
+					"Topic": "FSS.InventoryCount",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "InventoryCount"
+				}
+			]
+		},
+		"Config": {}
+	}
+}

@@ -1,0 +1,47 @@
+{
+	"eControllerConnector": {
+		"Type": "eControllerConnector",
+		"Enabled": true,
+		"PacketTransfer": {
+			"DbPath": ".\\databases\\eControllerDb.db",
+			"ChannelGroups": {
+				"Incoming": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 10,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"Channels": [
+						"eControllerToEHub"
+					]
+				},
+				"Outgoing": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 10,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"Channels": [
+						"eHubToEController"
+					]
+				},
+				"Errors": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 10,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"CanResend": false,
+					"Channels": [
+						"eControllerToEHub:Error",
+						"eHubToEController:Error"
+					]
+				}
+			}
+		},
+		"Config": {
+			"WorkDoneTopic": "eController.Import.WorkDone",
+			"RouteInfoTopic": "eController.Import.RouteInfo",
+			"BoxNumberTopic": "eController.Export.BoxNumber",
+			"ShipmentValidationTopic": "eController.Export.ShipmentValidation",
+			"HtiName": "Reflex"
+		}
+	}
+}

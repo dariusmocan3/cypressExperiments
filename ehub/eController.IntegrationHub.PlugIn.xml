@@ -1,0 +1,1243 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>eController.IntegrationHub.PlugIn</name>
+    </assembly>
+    <members>
+        <member name="T:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig">
+            <summary>
+            Represents configuration for mapping HTTP endpoints used by <see cref="T:eController.IntegrationHub.PlugIn.IHttpConnector"/> or <see cref="T:eController.IntegrationHub.PlugIn.IHttpPacketTransfer"/>.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig.Path">
+            <summary>
+            Specifies the path for both incoming and outgoing HTTP connector endpoints.
+            <para>Usage:</para>
+            <list type="bullet">
+            <item>
+            <description><strong>Incoming:</strong> The route pattern that incoming HTTP requests must match.</description>
+            </item>
+            <item>
+            <description><strong>Outgoing:</strong> The path to which outgoing HTTP requests are sent.</description>
+            </item>
+            </list>
+            <para>Note: This property should follow the format <c>[StringSyntax("Route")]</c>.</para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig.HttpMethod">
+            <summary>
+            Defines the HTTP method for both incoming and outgoing HTTP requests (e.g., GET, POST).
+            <para>Usage:</para>
+            <list type="bullet">
+            <item>
+            <description><strong>Incoming:</strong> The HTTP method that incoming requests must match.</description>
+            </item>
+            <item>
+            <description><strong>Outgoing:</strong> The HTTP method used when sending outgoing requests.</description>
+            </item>
+            </list>
+            <para>Note: This property should use the constants defined in the <see cref="!:HttpMethods"/> class.</para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig.Topic">
+            <summary>
+            Indicates the <c>eMessenger</c> topic for both incoming and outgoing requests.
+            <para>Usage:</para>
+            <list type="bullet">
+            <item>
+            <description><strong>Incoming:</strong> The eMessenger topic to which messages are redirected using the <c>eMessenger.Ask</c> request.</description>
+            </item>
+            <item>
+            <description><strong>Outgoing:</strong> The eMessenger topic from which messages are received using <c>eMessenger.Answer</c> response.</description>
+            </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig.ContentType">
+            <summary>
+            Specifies the content type (MIME type) of the HTTP request (e.g., application/json, application/xml).
+            <para>Note: This property should use the constants defined in the <see cref="T:System.Net.Mime.MediaTypeNames"/> class.</para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig.Api">
+            <summary>
+            Used only for outgoing endpoints to specify the target Api used for HTTP requests.
+            <para>Details:</para>
+            <list type="bullet">
+            <item>
+            <description>If provided, the HTTP requests will be made using the configured Api.</description>
+            </item>
+            <item>
+            <description>If not provided, the <see cref="P:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig.Path"/> is treated as the absolute URL for the request.</description>
+            </item>
+            </list>
+            <para><strong>Warning:</strong> If no matching key is found in the Api section of the configuration file, an error will be thrown.</para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig.Authorize">
+            <summary>
+            Used only for incoming endpoints to specify if the HTTP request requires authorization.
+            <para>Details:</para>
+            <list type="bullet">
+            <item>
+            <description>If <see langword="true"/>, the HTTP request must be authorized (Authentication must be configured in the connector).</description>
+            </item>
+            <item>
+            <description>If <see langword="false"/>, the HTTP request does not require authorization.</description>
+            </item>
+            <item>
+            <description>If <see langword="null"/>, defaults to <see langword="true"/> if the connector has authentication setup; otherwise, defaults to <see langword="false"/>.</description>
+            </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig.RequestSizeLimit">
+            <summary>
+            Specifies the maximum size of the HTTP request body.
+            </summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HttpConnectorRequestDto">
+            <summary>
+            
+            </summary>
+            <param name="Content"></param>
+            <param name="Path"></param>
+            <param name="ContentType"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpConnectorRequestDto.#ctor(System.ReadOnlyMemory{System.Byte},System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="Content"></param>
+            <param name="Path"></param>
+            <param name="ContentType"></param>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorRequestDto.Content">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorRequestDto.Path">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorRequestDto.ContentType">
+            <summary></summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HttpConnectorResponseDto">
+            <summary>
+            
+            </summary>
+            <param name="Content"></param>
+            <param name="ContentType"></param>
+            <param name="StatusCode"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpConnectorResponseDto.#ctor(System.ReadOnlyMemory{System.Byte},System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Content"></param>
+            <param name="ContentType"></param>
+            <param name="StatusCode"></param>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorResponseDto.Content">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorResponseDto.ContentType">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorResponseDto.StatusCode">
+            <summary></summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HttpConnectorDtoExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpConnectorDtoExtension.GetResult(eController.IntegrationHub.PlugIn.HttpConnectorResponseDto)">
+            <summary>
+            
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpConnectorDtoExtension.IsSuccessStatusCode(eController.IntegrationHub.PlugIn.HttpConnectorResponseDto)">
+            <summary>
+            
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IConnector">
+            <summary>
+            Implement this interface in a public class to expose a connector.<br/>
+            A connector can be instantiated multiple times with difference run parameters via connector config files.
+            
+            <para>
+            You can request any shared component via dependency injection to the constructor.<br/>
+            Common utilities like 
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#create-logs">Logging</see> and
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces">Options</see>
+            are available.
+            </para>
+            <para>
+            Use <see cref="T:Microsoft.Extensions.Options.IOptions`1"/>, <see cref="T:Microsoft.Extensions.Options.IOptionsSnapshot`1"/>
+            or <see cref="T:Microsoft.Extensions.Options.IOptionsMonitor`1"/> with a custom object annotated with
+            <see cref="T:eController.IntegrationHub.PlugIn.ScriptOptionsAttribute"/> to map the passed config.<br/>
+            You can refer to the 
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces">Options pattern in ASP.NET Core Documentation</see>
+            for usage.
+            </para>
+            </summary>
+        </member>
+        <member name="E:eController.IntegrationHub.PlugIn.IConnector.UpdateStatus">
+            <summary>
+            Event to expose data in a key-value-store manner to the web UI about the state of the connector.<br/>
+            Sent entries are managed by the IntegrationHub and can be removed by setting the value to <see langword="null" />
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IConnector.Run(System.Threading.CancellationToken)">
+            <summary>The connector should start the work with this call.
+            This call can and should enter a work loop, which only finishes when the connector gets stopped.
+            </summary>
+            <param name="cancellationToken">When the connector is requested to stop the token will be aborted.</param>
+            <returns>A long running Task tracking the work state of the connector.</returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UpdateStatusDelegate">
+            <summary>Delegate type to update status of Connectors</summary>
+            <param name="key">Any string to uniquely tag a value to set or update.</param>
+            <param name="value">The value to show for the tag. Or <see langword="null" /> to remove tag.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IHttpConnector">
+            <summary>
+            Implement this interface in a public class to expose a http connector.<br/>
+            A connector can be instantiated multiple times with different run parameters via connector config files.
+            
+            <para>
+            You can request any shared component via dependency injection to the constructor.<br/>
+            Common utilities like 
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#create-logs">Logging</see> and
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces">Options</see>
+            are available.
+            </para>
+            <para>
+            Use <see cref="T:Microsoft.Extensions.Options.IOptions`1"/>, <see cref="T:Microsoft.Extensions.Options.IOptionsSnapshot`1"/>
+            or <see cref="T:Microsoft.Extensions.Options.IOptionsMonitor`1"/> with a custom object annotated with
+            <see cref="T:eController.IntegrationHub.PlugIn.ScriptOptionsAttribute"/> to map the passed config.<br/>
+            You can refer to the 
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces">Options pattern in ASP.NET Core Documentation</see>
+            for usage.
+            </para>
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IHttpConnector.HttpSetup(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="routeBuilder"></param>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.IHttpConnector.HttpConnectorOptions">
+            <summary>
+            Gets or sets the HTTP connector options.
+            <para>
+            Contains options for overriding the default implementations of the HTTP connector.
+            </para>
+            </summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HttpConnectorOptions">
+            <summary>
+            Options for overriding the default implementations of the HTTP connector.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorOptions.HandleIncomingEndpoint">
+            <summary>
+            Delegate for handling incoming HTTP requests.
+            <para>
+            Set this delegate in <see cref="M:eController.IntegrationHub.PlugIn.IConnector.Run(System.Threading.CancellationToken)"/> to customize the handling of incoming HTTP requests.
+            </para>
+            <para>
+            If this property is not set, the default eHub implementation will be used for handling HTTP requests.
+            </para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpConnectorOptions.HandleOutgoingEndpoint">
+            <summary>
+            Delegate for handling outgoing HTTP requests.
+            <para>
+            Set this delegate in <see cref="M:eController.IntegrationHub.PlugIn.IConnector.Run(System.Threading.CancellationToken)"/> to customize the handling of outgoing HTTP requests.
+            </para>
+            <para>
+            If this property is not set, the default eHub implementation will be used for handling HTTP requests.
+            </para>
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpConnectorOptions.#ctor(eController.IntegrationHub.PlugIn.HandleIncomingEndpointDelegate,eController.IntegrationHub.PlugIn.HandleOutgoingEndpointDelegate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eController.IntegrationHub.PlugIn.HttpConnectorOptions"/> class.
+            <para>
+            Allows specifying delegates to handle incoming and outgoing HTTP requests.
+            </para>
+            </summary>
+            <param name="handleIncomingEndpointDelegate">The delegate for handling incoming HTTP requests. Leave <see langword="null"/> to use the default implementation.</param>
+            <param name="handleOutgoingEndpointDelegate">The delegate for handling outgoing HTTP requests. Leave <see langword="null"/> to use the default implementation.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HandleIncomingEndpointDelegate">
+            <summary>
+            Represents a delegate for handling incoming HTTP requests.
+            </summary>
+            <param name="data">The incoming data as a read-only memory block.</param>
+            <param name="endpointConfig">The configuration for the endpoint.</param>
+            <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HandleOutgoingEndpointDelegate">
+            <summary>
+            Represents a delegate for handling outgoing HTTP requests.
+            </summary>
+            <param name="request">The request data for the outgoing HTTP request.</param>
+            <param name="endpointConfig">The configuration for the endpoint.</param>
+            <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IHttpPacketTransfer">
+            <summary>
+            Implement this interface in a public class to expose an HTTP connector with packet transfer tools.<br/>
+            A connector can be instantiated multiple times with different run parameters via connector config files.
+            
+            <para>
+            You can request any shared component via dependency injection to the constructor.<br/>
+            Common utilities like 
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#create-logs">Logging</see> and
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces">Options</see>
+            are available.
+            </para>
+            <para>
+            Use <see cref="T:Microsoft.Extensions.Options.IOptions`1"/>, <see cref="T:Microsoft.Extensions.Options.IOptionsSnapshot`1"/>
+            or <see cref="T:Microsoft.Extensions.Options.IOptionsMonitor`1"/> with a custom object annotated with
+            <see cref="T:eController.IntegrationHub.PlugIn.ScriptOptionsAttribute"/> to map the passed config.<br/>
+            You can refer to the 
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces">Options pattern in ASP.NET Core Documentation</see>
+            for usage.
+            </para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.IHttpPacketTransfer.HttpPacketConverter">
+            <summary>
+            Gets or sets the converter used for transforming HTTP packets.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.IHttpPacketTransfer.HttpPacketTransferOptions">
+            <summary>
+            Gets or sets the HTTP Packet Transfer connector options.
+            <para>
+            Contains options for overriding the default implementations of the HTTP Packet Transfer connector.
+            </para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.IHttpPacketTransfer.eController#IntegrationHub#PlugIn#IHttpConnector#HttpConnectorOptions">
+            <summary>
+            Do not implement or override this property. 
+            This provides a default implementation using <see cref="P:eController.IntegrationHub.PlugIn.IHttpPacketTransfer.HttpPacketTransferOptions"/>.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.IHttpPacketTransfer.eController#IntegrationHub#PlugIn#IPacketTransfer#Converter">
+            <summary>
+            Do not implement or override this property. 
+            This provides a default implementation using <see cref="P:eController.IntegrationHub.PlugIn.IHttpPacketTransfer.HttpPacketConverter"/>.
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IHttpPacketTransfer.eController#IntegrationHub#PlugIn#IPacketTransfer#ProcessPacket(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <summary>
+            Do not implement or override this method.
+            This provides a default implementation that processes the packet using <see cref="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.HandleProcessPacket"/> if set,
+            or returns <see cref="F:eController.IntegrationHub.PlugIn.ProcessPacketState.FatalError"/> if <see cref="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.HandleProcessPacket"/> is null.
+            </summary>
+            <param name="packet">The packet data to be processed.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions">
+            <summary>
+            Options for overriding the default implementations of the HTTP Packet Transfer connector.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.IncomingChannel">
+            <summary>
+            Gets or sets the channel name for incoming packets.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.OutgoingChannel">
+            <summary>
+            Gets or sets the channel name for outgoing packets.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.HandleProcessIncomingPacket">
+            <summary>
+            Delegate for processing incoming HTTP packets.
+            <para>
+            This delegate will be invoked by <see cref="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.HandleProcessPacket"/> when <see cref="P:eController.IntegrationHub.PlugIn.PacketData.Channel"/> equals <see cref="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.IncomingChannel"/>, 
+            as well as directly by any incoming HTTP requests.
+            </para>
+            <para>
+            Set this delegate in <see cref="M:eController.IntegrationHub.PlugIn.IConnector.Run(System.Threading.CancellationToken)"/> to customize the handling of incoming HTTP packets.
+            If this property is not set, the default eHub implementation will be used.
+            </para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.HandleProcessOutgoingPacket">
+            <summary>
+            Delegate for processing outgoing HTTP packets.
+            <para>
+            This delegate will be invoked by <see cref="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.HandleProcessPacket"/> when <see cref="P:eController.IntegrationHub.PlugIn.PacketData.Channel"/> equals <see cref="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.OutgoingChannel"/>, 
+            as well as directly by any outgoing HTTP requests.
+            </para>
+            <para>
+            Set this delegate in <see cref="M:eController.IntegrationHub.PlugIn.IConnector.Run(System.Threading.CancellationToken)"/> to customize the handling of outgoing HTTP packets.
+            If this property is not set, the default eHub implementation will be used.
+            </para>
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.HandleProcessPacket">
+            <summary>
+            Delegate for processing packets.
+            <para>
+            This delegate will be invoked by <see cref="M:eController.IntegrationHub.PlugIn.IPacketTransfer.ProcessPacket(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)"/>.
+            </para>
+            <para>
+            Set this delegate in <see cref="M:eController.IntegrationHub.PlugIn.IConnector.Run(System.Threading.CancellationToken)"/> to customize the handling of packets.
+            If this property is not set, the default eHub implementation will be used.
+            </para>
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions.#ctor(System.String,System.String,eController.IntegrationHub.PlugIn.HandleIncomingEndpointDelegate,eController.IntegrationHub.PlugIn.HandleOutgoingEndpointDelegate,eController.IntegrationHub.PlugIn.HandleProcessIncomingPacketDelegate,eController.IntegrationHub.PlugIn.HandleProcessOutgoingPacketDelegate,eController.IntegrationHub.PlugIn.HandleProcessPacketDelegate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eController.IntegrationHub.PlugIn.HttpPacketTransferOptions"/> class.
+            <para>
+            Allows specifying options to handle incoming and outgoing HTTP requests.
+            </para>
+            </summary>
+            <param name="incomingChannel">The channel name used for storing incoming HTTP requests. Leave <see langword="null"/> to use the default value.</param>
+            <param name="outgoingChanel">The channel name used for storing outgoing HTTP requests. Leave <see langword="null"/> to use the default value.</param>
+            <param name="handleIncomingEndpointDelegate">The delegate for handling incoming HTTP requests. Leave <see langword="null"/> to use the default implementation.</param>
+            <param name="handleOutgoingEndpointDelegate">The delegate for handling outgoing HTTP requests. Leave <see langword="null"/> to use the default implementation.</param>
+            <param name="handleProcessIncomingPacketDelegate">The delegate for handling incoming HTTP Packets. Leave <see langword="null"/> to use the default implementation.</param>
+            <param name="handleProcessOutgoingPacketDelegate">The delegate for handling outgoing HTTP Packets. Leave <see langword="null"/> to use the default implementation.</param>
+            <param name="handleProcessPacketDelegate">The delegate for handling the processing of HTTP Packets. Leave <see langword="null"/> to use the default implementation.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HandleProcessIncomingPacketDelegate">
+            <summary>
+            Delegate for handling incoming HTTP packets.
+            </summary>
+            <param name="packet">The packet data to be processed.</param>
+            <param name="httpPacket">The HTTP packet data.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HandleProcessOutgoingPacketDelegate">
+            <summary>
+            Delegate for handling outgoing HTTP packets.
+            </summary>
+            <param name="packet">The packet data to be processed.</param>
+            <param name="httpPacket">The HTTP packet data.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HandleProcessPacketDelegate">
+            <summary>
+            Delegate for handling the processing of packets.
+            </summary>
+            <param name="packet">The packet data to be processed.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter">
+            <summary>
+            An <see cref="T:eController.IntegrationHub.PlugIn.IPacketConverter"/> class for handling HTTP packet transformations.
+            </summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter.HeadersToExclude">
+            <summary>
+            The HTTP headers to exclude from the packet repository.
+            </summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter.JsonOptions">
+            <summary>
+            JSON serializer options for serializing and deserializing HTTP packets.
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter.BuildHttpMetadata(System.ReadOnlyMemory{System.Byte},System.String,System.String,System.String,System.String,Microsoft.AspNetCore.Http.IHeaderDictionary,System.String)">
+            <summary>
+            Builds the HTTP metadata string from given content and details.
+            </summary>
+            <param name="content">The HTTP content data.</param>
+            <param name="url">The URL associated with the HTTP request.</param>
+            <param name="httpMethod">The HTTP method (GET, POST, etc.).</param>
+            <param name="topic">The topic associated with the packet.</param>
+            <param name="contentType">The content type of the HTTP request.</param>
+            <param name="headers">The headers of the HTTP request.</param>
+            <param name="api">The API endpoint associated with the HTTP request.</param>
+            <returns>A JSON string representing the HTTP metadata.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter.RawToBinaryDataConverter(System.ReadOnlyMemory{System.Byte},System.String,System.Threading.CancellationToken)">
+            <summary>Converts HTTP request content and metadata to database binary data format.</summary>
+            <param name="content">The HTTP request content data.</param>
+            <param name="metadata">The metadata of the packet.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter.PacketToRawDataConverter(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <summary>Converts a packet to its raw data format.</summary>
+            <param name="packet">The packet.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter.PacketToUIDataConverter(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <summary>Converts a packet to UI data format.</summary>
+            <param name="packet">The packet data.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter.UIToBinaryDataConverter(eController.IntegrationHub.PlugIn.UIConversionInfo,System.String,System.Threading.CancellationToken)">
+            <summary>Converts UI data to binary data format.</summary>
+            <param name="data">The UI conversion information.</param>
+            <param name="metadata">The metadata of the packet.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpPacketTransferConverter.GetHttpMetadata(System.String)">
+            <summary>
+            Retrieves an HTTP metadata object from a metadata string.
+            </summary>
+            <param name="metadata">The http metadata.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.HttpMetadata">
+            <summary>
+            Represents the metadata for an HTTP packet with information about the HTTP request (e.g., URL, http method, content type, API).
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpMetadata.Url">
+            <summary>
+            The URL of the HTTP request.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpMetadata.HttpMethod">
+            <summary>
+            The HTTP method of the request.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpMetadata.Topic">
+            <summary>
+            The eMessenger topic.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpMetadata.ContentType">
+            <summary>
+            The content type of the HTTP request.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpMetadata.Headers">
+            <summary>
+            The HTTP headers of the request.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.HttpMetadata.Api">
+            <summary>
+            The API used for the <see cref="T:System.Net.Http.HttpClient"/> in outgoing requests.
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpMetadata.#ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eController.IntegrationHub.PlugIn.HttpMetadata"/> class.
+            </summary>
+            <param name="url">The URL of the HTTP request.</param>
+            <param name="httpMethod">The HTTP method of the request.</param>
+            <param name="topic">The eMessenger topic.</param>
+            <param name="contentType">The content type of the HTTP request.</param>
+            <param name="headers">The HTTP headers of the request.</param>
+            <param name="api">The API used for the <see cref="!:HttpPacket"/> in outgoing requests.</param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.HttpMetadata.ToEndpointConfig">
+            <summary>
+            Converts the <see cref="T:eController.IntegrationHub.PlugIn.HttpMetadata"/> to an <see cref="T:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig"/>.
+            </summary>
+            <returns>A new <see cref="T:eController.IntegrationHub.PlugIn.HttpConnectorEndpointConfig"/> object.</returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.ContentTypeMapper">
+            <summary>
+            Provides methods for mapping <see cref="T:System.Net.Mime.MediaTypeNames"/> to and from <see cref="T:eController.IntegrationHub.PlugIn.UI.UIDataTypes"/>.
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.ContentTypeMapper.ToUIDataType(System.String)">
+            <summary>
+            Maps <see cref="T:System.Net.Mime.MediaTypeNames"/> to <see cref="T:eController.IntegrationHub.PlugIn.UI.UIDataTypes"/>.
+            </summary>
+            <param name="contentType">The content type in <see cref="T:System.Net.Mime.MediaTypeNames"/> format.</param>
+            <returns>The corresponding <see cref="T:eController.IntegrationHub.PlugIn.UI.UIDataTypes"/>.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.ContentTypeMapper.FromUIDataType(System.String)">
+            <summary>
+            Maps <see cref="T:eController.IntegrationHub.PlugIn.UI.UIDataTypes"/> to <see cref="T:System.Net.Mime.MediaTypeNames"/>.
+            </summary>
+            <param name="dataType">The data type in <see cref="T:eController.IntegrationHub.PlugIn.UI.UIDataTypes"/> format.</param>
+            <returns>The corresponding <see cref="T:System.Net.Mime.MediaTypeNames"/>.</returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IPacketConverter">
+            <summary>
+            Converter interface for converting packet transfer data between the incoming, database, and UI-friendly formats.
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketConverter.RawToBinaryDataConverter(System.ReadOnlyMemory{System.Byte},System.String,System.Threading.CancellationToken)">
+            <summary>Gets the binary data stored in the packet transfer database from the incoming raw data.</summary>
+            <param name="data">The incoming data received by the connector.</param>
+            <param name="metadata">The metadata used to create the binary data.</param>
+            <param name="cancellationToken"></param>
+            <returns>The binary data of the packet stored.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketConverter.PacketToRawDataConverter(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <summary>Gets the raw data from the packet's binary data.</summary>
+            <param name="packet">The packet used for the conversion.</param>
+            <param name="cancellationToken"></param>
+            <returns>The raw data of the packet.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketConverter.PacketToUIDataConverter(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <summary>Gets the converted packet information for the UI.</summary>
+            <param name="packet">The packet used for the conversion.</param>
+            <param name="cancellationToken"></param>
+            <returns>The converted packet information for the UI.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketConverter.UIToBinaryDataConverter(eController.IntegrationHub.PlugIn.UIConversionInfo,System.String,System.Threading.CancellationToken)">
+            <summary>Gets the binary data stored in the packet transfer database from the UI data.</summary>
+            <param name="data">The UI data used for conversion.</param>
+            <param name="metadata">The metadata used for conversion.</param>
+            <param name="cancellationToken"></param>
+            <returns>The binary data of the packet stored.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketConverter.BytesToUIDataConverter(System.ReadOnlyMemory{System.Byte})">
+            <summary>Gets the binary data of a packet as a string representing the UI-friendly data to be displayed.</summary>
+            <param name="bytes">The binary data of the packet.</param>
+            <returns>The packet data displayed in the UI as a string.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketConverter.RawToBinaryDataConverter(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
+            <summary>Gets the binary data stored in the packet transfer database from the incoming raw data.</summary>
+            <param name="data">The incoming data received by the connector.</param>
+            <param name="cancellationToken"></param>
+            <returns>The binary data of the packet stored.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketConverter.UIToBinaryDataConverter(eController.IntegrationHub.PlugIn.UIConversionInfo,System.Threading.CancellationToken)">
+            <summary>Gets the binary data stored in the packet transfer database from the UI data.</summary>
+            <param name="data">The UI data used for conversion.</param>
+            <param name="cancellationToken"></param>
+            <returns>The binary data of the packet stored.</returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UIConversionInfo">
+            <summary>Used for conversion between packet database binary data and UI data.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UIConversionInfo.Data">
+            <summary>The displayed data in the UI.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UIConversionInfo.DataPreview">
+            <summary>The preview of the data displayed in the UI.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UIConversionInfo.DataType">
+            <summary>The data type.</summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UIConversionInfo.#ctor(System.String,System.String,System.String)">
+            <summary></summary>
+            <param name="data">The displayed data in the UI.</param>
+            <param name="dataPreview">The preview of the data displayed in the UI.</param>
+            <param name="dataType">The data type.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IPacketRepository">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketRepository.Create">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketRepository.Update">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketRepository.Query">
+            <summary></summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IPacketCreateBuilder">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketCreateBuilder.Add(eController.IntegrationHub.PlugIn.PacketData)">
+            <summary></summary>
+            <param name="packet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketCreateBuilder.AddRange(eController.IntegrationHub.PlugIn.PacketData[])">
+            <summary></summary>
+            <param name="packets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketCreateBuilder.AddRange(System.Collections.Generic.IEnumerable{eController.IntegrationHub.PlugIn.PacketData})">
+            <summary></summary>
+            <param name="packets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketCreateBuilder.CreateAsync(System.Threading.CancellationToken)">
+            <summary></summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IPacketUpdateBuilder">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketUpdateBuilder.Set``1(System.Linq.Expressions.Expression{System.Func{eController.IntegrationHub.PlugIn.PacketData,``0}},``0)">
+            <summary></summary>
+            <typeparam name="TProp"></typeparam>
+            <param name="property"></param>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketUpdateBuilder.Where(System.Linq.Expressions.Expression{System.Func{eController.IntegrationHub.PlugIn.PacketData,System.Boolean}})">
+            <summary></summary>
+            <param name="conditionExpression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketUpdateBuilder.ExecuteAsync(System.Threading.CancellationToken)">
+            <summary></summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IPacketQueryBuilder">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketQueryBuilder.Where(System.Linq.Expressions.Expression{System.Func{eController.IntegrationHub.PlugIn.PacketData,System.Boolean}})">
+            <summary></summary>
+            <param name="conditionExpression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketQueryBuilder.GetAsync(System.Threading.CancellationToken)">
+            <summary></summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.PacketRepositoryExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.PacketRepositoryExtensions.AddAsync(eController.IntegrationHub.PlugIn.IPacketRepository,eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <summary>Convenience method for adding a single packet to the history.</summary>
+            <param name="packetRepository">Repository to work on</param>
+            <param name="packet">The packet to add</param>
+            <param name="cancellationToken"></param>
+            <returns>The newly added packet with id.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.PacketRepositoryExtensions.AddRangeAsync(eController.IntegrationHub.PlugIn.IPacketRepository,eController.IntegrationHub.PlugIn.PacketData[],System.Threading.CancellationToken)">
+            <summary>Convenience method for adding multiple packets to the history.</summary>
+            <param name="packetRepository">Repository to work on</param>
+            <param name="packets">The packets to add</param>
+            <param name="cancellationToken"></param>
+            <returns>The newly added packets with ids.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.PacketRepositoryExtensions.AddRangeAsync(eController.IntegrationHub.PlugIn.IPacketRepository,System.Collections.Generic.IEnumerable{eController.IntegrationHub.PlugIn.PacketData},System.Threading.CancellationToken)">
+            <summary>Convenience method for adding multiple packets to the history.</summary>
+            <param name="packetRepository">Repository to work on</param>
+            <param name="packets">The packets to add</param>
+            <param name="cancellationToken"></param>
+            <returns>The newly added packets with ids.</returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.PacketRepositoryExtensions.UpdatePacketStatusAsync(eController.IntegrationHub.PlugIn.IPacketRepository,System.Int64,eController.IntegrationHub.PlugIn.PacketStatus,System.Threading.CancellationToken)">
+            <summary>Convenience method for updating the status of a single packet to the history.</summary>
+            <param name="packetRepository">Repository to work on</param>
+            <param name="packetId">The packet to update</param>
+            <param name="status">The new packet status</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.PacketRepositoryExtensions.GetPacketByIdAsync(eController.IntegrationHub.PlugIn.IPacketRepository,System.Int64,System.Threading.CancellationToken)">
+            <summary>Convenience method for getting a packet by its Id.</summary>
+            <param name="packetRepository">Repository to work on</param>
+            <param name="packetId">The packet Id to get</param>
+            <param name="cancellationToken"></param>
+            <returns>The packet corresponding to the provided Id.</returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.IPacketTransfer">
+            <summary>
+            Implement this interface in a public class to expose a connector with packet transfer tools.<br/>
+            A connector can be instantiated multiple times with difference run parameters via connector config files.
+            
+            <para>
+            You can request any shared component via dependency injection to the constructor.<br/>
+            Common utilities like 
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#create-logs">Logging</see> and
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces">Options</see>
+            are available.
+            </para>
+            <para>
+            Use <see cref="T:Microsoft.Extensions.Options.IOptions`1"/>, <see cref="T:Microsoft.Extensions.Options.IOptionsSnapshot`1"/>
+            or <see cref="T:Microsoft.Extensions.Options.IOptionsMonitor`1"/> with a custom object annotated with
+            <see cref="T:eController.IntegrationHub.PlugIn.ScriptOptionsAttribute"/> to map the passed config.<br/>
+            You can refer to the 
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces">Options pattern in ASP.NET Core Documentation</see>
+            for usage.
+            </para>
+            </summary>
+        </member>
+        <member name="E:eController.IntegrationHub.PlugIn.IPacketTransfer.TriggerPacketProcess">
+            <summary>Event to trigger the processing of a channel group.</summary>
+        </member>
+        <member name="E:eController.IntegrationHub.PlugIn.IPacketTransfer.PacketReceived">
+            <summary>Event to receive packet data from the connector.</summary>
+        </member>
+        <member name="E:eController.IntegrationHub.PlugIn.IPacketTransfer.ResetPacketRetryCount">
+            <summary>It is used to reset the retry count of a specific Packet</summary>
+        </member>
+        <member name="E:eController.IntegrationHub.PlugIn.IPacketTransfer.ResetAllPacketsRetryCount">
+            <summary>It is used to reset the retry count of all Packets of a specific status</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.IPacketTransfer.Converter">
+            <summary>It is used to process packets binaryData</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.IPacketTransfer.PacketRepository">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketTransfer.ProcessPacket(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <summary>
+            Called by the connector manager while pooling on db
+            </summary>
+            <param name="packet"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.IPacketTransfer.BuildUIViewConfig">
+            <summary>
+            Create a default UIViewConfig used in case UIViewConfig.json is missing.
+            </summary>
+            <returns>A default UIViewConfig</returns>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.PacketData">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.Id">
+            <summary>The packet Id.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.BinaryData">
+            <summary>The packet data in binary.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.Metadata">
+            <summary>The Additional metadata of the Packet</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.Channel">
+            <summary>The channel that the packet is received on.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.Status">
+            <summary>The status of the received packet.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.DynamicField">
+            <summary>A dynamic field that can be used for anything</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.ParentId">
+            <summary>The parent Packet Id.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.RetryCount">
+            <summary>The packet process retry count.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.DateCreated">
+            <summary>The date and time the packet was created.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.PacketData.DateChanged">
+            <summary>The date and time the packet was last changed.</summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.PacketData.#ctor">
+            <summary>Default Constructor.</summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.PacketData.#ctor(System.ReadOnlyMemory{System.Byte},System.String,eController.IntegrationHub.PlugIn.PacketStatus,System.Nullable{System.Int64})">
+            <summary>Constructor for new packets to be be created in the database with specific status.</summary>
+            <param name="binaryData">The packet data.</param>
+            <param name="channel">The channel that the packet is received on.</param>
+            <param name="packetStatus">The status of the received packet.</param>
+            <param name="parentId">Optional.The parent Packet Id.</param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.ProcessPacketState">
+            <summary>The return states of packet processing.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.ProcessPacketState.Success">
+            <summary>Success state.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.ProcessPacketState.Retry">
+            <summary>Retry state. Will increment the retry count and retry processing.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.ProcessPacketState.Error">
+            <summary>Error state. Will increment the retry count and retry processing.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.ProcessPacketState.FatalError">
+            <summary>Fatal error state. Will not enter processing again.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.ProcessPacketState.InProgress">
+            <summary>In progress state. Will not enter processing again.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.ProcessPacketState.RetryUnchanged">
+            <summary>Retry unchanged state. Will leave everything unchanged and retry processing.</summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.TriggerPacketProcessDelegate">
+            <summary>Triggers the processing of the channel group containing the provided channel.</summary>
+            <param name="channel"></param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.PacketReceivedDelegate">
+            <summary>Delegate type to receive a packet from Connectors.</summary>
+            <param name="eventArgs"></param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.ResetPacketRetryCountDelegate">
+            <summary>Delegate type to reset a packet retry count.</summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.ResetAllPacketsRetryCountDelegate">
+            <summary>Delegate type to reset all packets retry count by specific status.</summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.StringConverter">
+            <summary>
+            Simple to string converter
+            </summary>
+            <remarks>
+            Initializes a new instance of the <see cref="T:eController.IntegrationHub.PlugIn.StringConverter"/> class with the specified encoding and display type.
+            </remarks>
+            <param name="encoding">The encoding to be used for converting strings to bytes and vice versa.</param>
+            <param name="displayType">The display type of the converter.</param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.StringConverter.#ctor(System.Text.Encoding,System.String)">
+            <summary>
+            Simple to string converter
+            </summary>
+            <remarks>
+            Initializes a new instance of the <see cref="T:eController.IntegrationHub.PlugIn.StringConverter"/> class with the specified encoding and display type.
+            </remarks>
+            <param name="encoding">The encoding to be used for converting strings to bytes and vice versa.</param>
+            <param name="displayType">The display type of the converter.</param>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.StringConverter.Utf8Text">
+            <summary>Converter for generic UTF-8 encoded text.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.StringConverter.Utf8Json">
+            <summary>Converter for generic UTF-8 encoded json.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.StringConverter.AsciiText">
+            <summary>Converter for generic ASCII encoded text.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.StringConverter.Encoding">
+            <summary>Gets the encoding used for converting strings to bytes and vice versa.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.StringConverter.DisplayType">
+            <summary>Gets the UI display type of the converter. Refer to <see cref="T:eController.IntegrationHub.PlugIn.UI.UIDataTypes"/> for well-known types."/></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.StringConverter.MaxPreviewLength">
+            <summary>Gets or sets the maximum length of the preview text. Longer text will be truncated.</summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.StringConverter.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:eController.IntegrationHub.PlugIn.StringConverter"/> class with the default UTF-8 encoding.</summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.StringConverter.#ctor(System.Text.Encoding)">
+            <summary>Initializes a new instance of the <see cref="T:eController.IntegrationHub.PlugIn.StringConverter"/> class with the specified encoding.</summary>
+            <param name="encoding">The encoding to be used for converting strings to bytes and vice versa.</param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.StringConverter.eController#IntegrationHub#PlugIn#IPacketConverter#RawToBinaryDataConverter(System.ReadOnlyMemory{System.Byte},System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.StringConverter.eController#IntegrationHub#PlugIn#IPacketConverter#PacketToRawDataConverter(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.StringConverter.eController#IntegrationHub#PlugIn#IPacketConverter#PacketToUIDataConverter(eController.IntegrationHub.PlugIn.PacketData,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.StringConverter.eController#IntegrationHub#PlugIn#IPacketConverter#UIToBinaryDataConverter(eController.IntegrationHub.PlugIn.UIConversionInfo,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.PacketStatus">
+            <summary></summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.PacketStatus.Enqueued">
+            <summary></summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.PacketStatus.Processed">
+            <summary></summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.PacketStatus.Error">
+            <summary></summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.PacketStatus.FatalError">
+            <summary></summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.PacketStatus.InProgress">
+            <summary></summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.PacketStatus.ManualStop">
+            <summary></summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.PacketStatus.Received">
+            <summary></summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.PacketStatusExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.PacketStatusExtensions.IsProcessed(eController.IntegrationHub.PlugIn.PacketStatus)">
+            <summary></summary>
+            <param name="status"></param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.ScriptOptionsAttribute">
+            <summary>
+            Marks the class or constructor parameter as the target to be mapped from the Connector config.
+            </summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.StatusOptions">
+            <summary>
+            Contains options how to handle/view the status information form a connector.
+            </summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.StatusOptions.#ctor">
+            <summary>
+            Contains options how to handle/view the status information form a connector.
+            </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.StatusOptions.Color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.StatusOptions.ElColor">
+            <summary>
+            Sets the color how the information should be shown.
+            </summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.UIDataTypes">
+            <summary>Defines the languages used by the <see href="https://github.com/serdarciplak/BlazorMonaco">Blazor Monaco Editor</see> to display the packet data.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.UIDataTypes.Plaintext">
+            <summary>Use to display plain text data.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.UIDataTypes.Xml">
+            <summary>Use to display XML data.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.UIDataTypes.Json">
+            <summary>Use to display JSON data.</summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.UIViewConfig">
+            <summary>Configurations for the UI.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.UIViewConfig.CustomUIViewType">
+            <summary>Represents the type identifier for custom UI views. </summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.UIViewConfig.Name">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.UIViewConfig.Views">
+            <summary>Collection of all view tabs displayed in the UI.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.UIViewConfig.Columns">
+            <summary>Collection of all column configurations inside all data grids</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.UIViewConfig.Connectors">
+            <summary>Only required for custom UI view configurations.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.UIViewConfig.Filter">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.UIViewConfig.ViewPacketCount">
+            <summary>The ammount of packets fetched in live mode, as well as the ammount of packets per page in offline mode.</summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.ViewConfig">
+            <summary>Configurations of a UI view tab. List of all connectors used in this view configuration.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.Name">
+            <summary>The name of the view.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.DisplayName">
+            <summary>Dictionary containing translations for the displayed view label in multiple languages.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.Connectors">
+            <summary>List of the connectors that will have this particular view. If not specified, the view will be visible for all connectors.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.DataDisplay">
+            <summary>Configurations of how the packet data will be displayed.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.Channels">
+            <summary>List of channel data grid configurations.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.Columns">
+            <summary>Collection of all column configurations inside all data grids in this view.Can be omitted to keep the column configurations defined by<see cref="P:eController.IntegrationHub.PlugIn.UI.UIViewConfig.Columns"/>.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.DataDisplayFormat">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.DataRowCount">
+            <summary></summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.ChannelConfig">
+            <summary>Configurations for a channel data grid.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.Name">
+            <summary>The name of the channel data grid.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.Connector">
+            <summary>Specifies the connector to which this channel belongs.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.DisplayName">
+            <summary>Dictionary containing translations for the displayed data grid title in multiple languages.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.Channel">
+            <summary>The channel displayed in this data grid.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.DataDisplay">
+            <summary>Configurations of how the packet data will be displayed.Can be omitted to keep the display configurations defined by <see cref="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.DataDisplay"/>.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.Position">
+            <summary>The position of the channel data grid based on row and column indices.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.Columns">
+            <summary>Collection of all column configurations inside this channel data grid. Can be omitted to keep the column configurations defined by <see cref="P:eController.IntegrationHub.PlugIn.UI.ViewConfig.Columns"/>.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.DataDisplayFormat">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ChannelConfig.DataRowCount">
+            <summary></summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.ColumnConfig">
+            <summary>Configurations of a channel data grid column.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ColumnConfig.Visible">
+            <summary>Whether the column should be visible or not.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ColumnConfig.Format">
+            <summary>The format in which the column data is displayed.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ColumnConfig.SortDirection">
+            <summary>The default sorting direction of the rows by this columns. Either "Ascending" or "Descending". If not specified the column is not sorted by default.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.ColumnConfig.Width">
+            <summary>The width of the column in pixels.</summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.DataDisplayConfig">
+            <summary>Configurations of how the packet data data is displayed.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.DataDisplayConfig.Format">
+            <summary>The format in wich the packet data will be displayed.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.DataDisplayConfig.RowCount">
+            <summary>The number of visible rows without scrolling.</summary>
+            <remarks>
+            Only required for scroll display formats:
+            <list type="bullet">
+            <item><see cref="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.MultiLineScroll"/></item>
+            <item><see cref="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.XmlScroll"/></item>
+            <item><see cref="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.JsonScroll"/></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.DataDisplayConfig.PreviewPath">
+            <summary>The path to the XML or JSON element displayed as preview.</summary>
+            <remarks>
+            Only required for dialog preview display formats:
+            <list type="bullet">
+            <item><see cref="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.XmlDialogPreview"/></item>
+            <item><see cref="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.JsonDialogPreview"/></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.DataDisplayConfig.PreviewSubstring">
+            <summary>The substring indices of the packet data displayed as preview.</summary>
+            <remarks>
+            Only required for dialog preview display formats:
+            <list type="bullet">
+            <item><see cref="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.XmlDialogPreview"/></item>
+            <item><see cref="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.JsonDialogPreview"/></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.DisplayFormat">
+            <summary>Display formats for the packet data.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.SingleLine">
+            <summary>Single line.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.MultiLineFull">
+            <summary>Multiple lines.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.MultiLineScroll">
+            <summary>Multiple lines with scroll.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.Dialog">
+            <summary>Dialog.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.XmlFull">
+            <summary>XML on multiple lines.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.XmlScroll">
+            <summary>XML on multiple lines with scroll.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.JsonFull">
+            <summary>JSON on multiple lines.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.JsonScroll">
+            <summary>JSON on multiple lines with scroll.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.XmlDialog">
+            <summary>XML dialog.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.XmlDialogPreview">
+            <summary>Preview XML outside dialog.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.JsonDialog">
+            <summary>JSON dialog.</summary>
+        </member>
+        <member name="F:eController.IntegrationHub.PlugIn.UI.DisplayFormat.JsonDialogPreview">
+            <summary>Preview JSON outside dialog.</summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.DisplayFormatExtensions">
+            <summary>Extensions for <see cref="T:eController.IntegrationHub.PlugIn.UI.DisplayFormat"/></summary>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UI.DisplayFormatExtensions.IsScroll(eController.IntegrationHub.PlugIn.UI.DisplayFormat)">
+            <summary>Checks whether the display format has scroll.</summary>
+            <param name="format"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UI.DisplayFormatExtensions.IsRawText(eController.IntegrationHub.PlugIn.UI.DisplayFormat)">
+            <summary>Checks whether the display format is of simple text format.</summary>
+            <param name="format"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UI.DisplayFormatExtensions.IsXml(eController.IntegrationHub.PlugIn.UI.DisplayFormat)">
+            <summary>Checks whether the display format is of XML format.</summary>
+            <param name="format"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UI.DisplayFormatExtensions.IsJson(eController.IntegrationHub.PlugIn.UI.DisplayFormat)">
+            <summary>Checks whether the display format is of JSON format.</summary>
+            <param name="format"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UI.DisplayFormatExtensions.IsDialog(eController.IntegrationHub.PlugIn.UI.DisplayFormat)">
+            <summary>Checks whether the display format is of dialog format.</summary>
+            <param name="format"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UI.DisplayFormatExtensions.IsDialogPreview(eController.IntegrationHub.PlugIn.UI.DisplayFormat)">
+            <summary>Checks whether the display format is of dialog with preview format.</summary>
+            <param name="format"></param>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.UIFilterConfig">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.UIFilterConfig.StartDateTimeOffset">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.UIFilterConfig.EndDateTimeOffset">
+            <summary></summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.Position">
+            <summary>Position of the data grid based on row and column indices.</summary>
+            <param name="RowIndex"></param>
+            <param name="ColIndex"></param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UI.Position.#ctor(System.Int32,System.Int32)">
+            <summary>Position of the data grid based on row and column indices.</summary>
+            <param name="RowIndex"></param>
+            <param name="ColIndex"></param>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.Position.RowIndex">
+            <summary></summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.Position.ColIndex">
+            <summary></summary>
+        </member>
+        <member name="T:eController.IntegrationHub.PlugIn.UI.SubstringInfo">
+            <summary>Substring start and end indices.</summary>
+            <param name="StartIndex">The substring start index.</param>
+            <param name="EndIndex">The substring end index.</param>
+        </member>
+        <member name="M:eController.IntegrationHub.PlugIn.UI.SubstringInfo.#ctor(System.Int32,System.Int32)">
+            <summary>Substring start and end indices.</summary>
+            <param name="StartIndex">The substring start index.</param>
+            <param name="EndIndex">The substring end index.</param>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.SubstringInfo.StartIndex">
+            <summary>The substring start index.</summary>
+        </member>
+        <member name="P:eController.IntegrationHub.PlugIn.UI.SubstringInfo.EndIndex">
+            <summary>The substring end index.</summary>
+        </member>
+    </members>
+</doc>

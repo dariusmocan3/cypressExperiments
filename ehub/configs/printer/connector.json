@@ -1,0 +1,42 @@
+{
+	"PrinterConnector": {
+		"Type": "PrinterConnector",
+		"Enabled": true,
+		"PacketTransfer": {
+			"DbPath": ".\\databases\\PrinterConnectorDb.db",
+			"ChannelGroups": {
+				"Send": {
+					"DbPollInterval": "3s",
+					"PacketsPerCycle": 100,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"Channels": [
+						"Sender",
+						"Sender_Ack"
+					]
+				},
+				"Errors": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 1,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"CanResend": false,
+					"Channels": [
+						"Sender:Error",
+						"Sender_Ack:Error"
+					]
+				}
+			}
+		},
+		"Config": {
+			"PrinterName": "Labeler04",
+			"MfcName": "CV",
+			"IpAddress": "10.9.53.101",
+			"Port": 9100,
+			"UIDisplayPatterns": [
+				"No de colis : \\d+",
+				"IPP: \\d+"
+			]
+		}
+	}
+}

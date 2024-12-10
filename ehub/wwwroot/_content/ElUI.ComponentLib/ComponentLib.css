@@ -1,0 +1,693 @@
+﻿:root {
+  /* Colors */
+  --colors-belize-30: #164564;
+  --colors-belize-50: #2573A7;
+  --colors-belize-95: #E9F1F6;
+  --colors-belize-99: #F4F8FB;
+  --colors-ux-sharp-red-30: #88040B;
+  --colors-ux-sharp-red-50: #E30613;
+  --colors-ux-sharp-red-99: #FEF3F3;
+  --colors-neutrals-black-60: #999;
+  --colors-neutrals-black-80: #CCC;
+  --colors-wet-asphalt-50: #34495E;
+  --colors-wet-asphalt-66: #5D6D7E;
+  --colors-wet-asphalt-90: #D6DBDF;
+  --colors-wet-asphalt-95: #EBEDEF;
+  --colors-wet-asphalt-99: #F5F6F7;
+  --colors-black-20: #333333;
+  --colors-nephritis-99: #F4FBF7;
+  --colors-nephritis-40: #1F8B4D;
+  --colors-orange-99: #FFFAF3;
+  --colors-orange-50: #F39C12;
+  --colors-white: white;
+  /* MUD */
+  --mud-palette-background: var(--colors-belize-99);
+  --mud-palette-primary-text: var(--mud-palette-background) !important;
+  --mud-palette-secondary-text: #FFFFFF !important;
+  --mud-palette-success: var(--colors-nephritis-40) !important;
+  --mud-palette-success-text: var(--colors-black-20) !important;
+  --mud-palette-warning: var(--colors-orange-50) !important;
+  --mud-palette-warning-text: var(--colors-black-20) !important;
+  --mud-palette-error: var(--colors-ux-sharp-red-50) !important;
+  --mud-palette-error-text: var(--colors-black-20) !important;
+  --mud-palette-action-default: var(--colors-belize-50) !important;
+  --mud-palette-action-disabled: var(--colors-neutrals-black-60) !important;
+  --mud-palette-action-disabled-background: var(--colors-neutrals-black-80) !important;
+  --mud-palette-table-hover: var(--colors-wet-asphalt-99) !important;
+  --mud-palette-appbar-background: #34495E !important;
+}
+
+:root {
+  /* Typography */
+  --mud-typography-h1-size: 2.125rem !important;
+  --mud-typography-h1-weight: 400 !important;
+  --mud-typography-h1-lineheight: 2.625rem !important;
+  --mud-typography-h1-letterspacing: 0.008rem;
+  --mud-palette-primary: var(--colors-wet-asphalt-50) !important;
+  --mud-palette-primary-darken: var(--colors-belize-30) !important;
+  --mud-palette-secondary: var(--colors-belize-50) !important;
+  --mud-palette-secondary-darken: var(--colors-belize-30) !important;
+  --mud-palette-secondary-hover: var(--mud-palette-background) !important;
+  --mud-palette-tertiary: #34495E !important;
+  --mud-palette-tertiary-hover: var(--mud-palette-background) !important;
+  --mud-palette-error: var(--colors-ux-sharp-red-50);
+  --mud-palette-error-darken: var(--colors-ux-sharp-red-30) !important;
+  --mud-typography-button-text-transform: initial !important;
+  --mud-typography-button-size: 1rem !important;
+  --mud-typography-button-weight: 400 !important;
+  --mud-typography-button-lineheight: 32px !important;
+}
+
+.mud-dialog-content {
+  border: 1px solid #D6DBDF !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding: 24px !important;
+}
+
+.mud-dialog-title .mud-typography-h2 {
+  font-weight: 500 !important;
+  font-size: 1.25rem !important;
+}
+
+/* Components */
+.el-button.mud-button {
+  /* Disable transition on border while keeping the other default mudblazor transitions */
+  -webkit-transition-property: -webkit-box-shadow;
+  transition-property: -webkit-box-shadow;
+  transition-property: box-shadow;
+  transition-property: box-shadow, -webkit-box-shadow;
+  /* To compensate for thicker border on hover */
+}
+.el-button.mud-button.el-button-primary, .el-button.mud-button.el-button-secondary {
+  margin: 4px;
+  border-radius: 100px;
+}
+.el-button.mud-button.el-button-primary:not([disabled]) {
+  background-color: var(--mud-palette-secondary) !important;
+  color: var(--mud-palette-secondary-text) !important;
+}
+.el-button.mud-button.el-button-secondary {
+  background-color: white !important;
+  color: var(--mud-palette-primary-text) !important;
+}
+.el-button.mud-button.el-button-primary.el-button-size-small:focus-visible, .el-button.mud-button.el-button-primary.el-button-size-small:active, .el-button.mud-button.el-button-secondary.el-button-size-small:focus-visible, .el-button.mud-button.el-button-secondary.el-button-size-small:active {
+  outline: 4px solid var(--colors-belize-50);
+}
+.el-button.mud-button.el-button-primary.el-button-size-medium:focus-visible, .el-button.mud-button.el-button-primary.el-button-size-medium:focus-visible, .el-button.mud-button.el-button-primary.el-button-size-medium:active, .el-button.mud-button.el-button-secondary.el-button-size-medium:focus-visible, .el-button.mud-button.el-button-secondary.el-button-size-medium:active {
+  outline: 6px solid var(--colors-belize-50);
+}
+.el-button.mud-button.el-button-primary.el-button-size-large:focus-visible, .el-button.mud-button.el-button-primary.el-button-size-large:active, .el-button.mud-button.el-button-secondary.el-button-size-large:focus-visible, .el-button.mud-button.el-button-secondary.el-button-size-large:active {
+  outline: 8px solid var(--colors-belize-50);
+}
+.el-button.mud-button.el-button-secondary:not(:hover) {
+  margin: 5px;
+}
+.el-button.mud-button.el-button-secondary:hover {
+  background-color: transparent;
+  border: 2px solid var(--mud-palette-secondary);
+}
+.el-button.mud-button.el-button-secondary:not([disabled]) > .mud-button-label {
+  color: var(--colors-belize-50);
+}
+.el-button.mud-button.el-button-secondary:disabled > .mud-button-label {
+  color: var(--colors-neutrals-black-80);
+}
+.el-button.mud-button.el-button-tertiary {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 1px;
+}
+.el-button.mud-button.el-button-tertiary:disabled > .mud-button-label {
+  color: var(--colors-neutrals-black-80);
+}
+.el-button.mud-button.el-button-tertiary.el-button-size-small, .el-button.mud-button.el-button-tertiary.el-button-size-medium, .el-button.mud-button.el-button-tertiary.el-button-size-large {
+  padding: 2px 5px;
+}
+.el-button.mud-button.el-button-tertiary:hover {
+  color: var(--colors-belize-30);
+  background-color: transparent;
+  border-bottom: 1px solid var(--colors-belize-30);
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.el-button.mud-button.el-button-tertiary:focus-visible {
+  outline: 1px solid var(--colors-belize-50);
+}
+.el-button.mud-button.el-button-tertiary > .mud-button-label {
+  color: var(--colors-belize-50);
+}
+.el-button.mud-button.el-button-destructive {
+  padding: 10px 24px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 100px;
+  margin: 4px;
+}
+.el-button.mud-button.el-button-destructive.el-button-size-small:focus-visible, .el-button.mud-button.el-button-destructive.el-button-size-small:active {
+  outline: 4px solid var(--colors-ux-sharp-red-50);
+}
+.el-button.mud-button.el-button-destructive.el-button-size-medium:focus-visible, .el-button.mud-button.el-button-destructive.el-button-size-medium:active {
+  outline: 6px solid var(--colors-ux-sharp-red-50);
+}
+.el-button.mud-button.el-button-destructive.el-button-size-large:focus-visible, .el-button.mud-button.el-button-destructive.el-button-size-large:active {
+  outline: 8px solid var(--colors-ux-sharp-red-50);
+}
+.el-button.mud-button.el-button-destructive:not(:disabled) > .mud-button-label {
+  color: white;
+}
+.el-button.mud-button.el-button-size-small {
+  padding: 10px 24px;
+  font-size: 1rem;
+}
+.el-button.mud-button.el-button-size-small > .mud-button-label {
+  gap: 4px;
+}
+.el-button.mud-button.el-button-size-small .mud-icon-root.mud-icon-size-small {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0;
+}
+.el-button.mud-button.el-button-size-medium {
+  padding: 12px 32px;
+  font-size: 1.4375rem;
+}
+.el-button.mud-button.el-button-size-medium > .mud-button-label {
+  gap: 6px;
+}
+.el-button.mud-button.el-button-size-medium .mud-icon-root.mud-icon-size-medium {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.el-button.mud-button.el-button-size-large {
+  padding: 18px 44px;
+  font-size: 1.875rem;
+}
+.el-button.mud-button.el-button-size-large > .mud-button-label {
+  gap: 8px;
+}
+.el-button.mud-button.el-button-size-large .mud-icon-root.mud-icon-size-large {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.el-button.mud-button .mud-button-label .mud-button-icon-start {
+  margin-right: 0;
+}
+
+.el-table .mud-table-head {
+  background-color: #5D6D7E !important;
+}
+.el-table .mud-table-head th {
+  color: white !important;
+  background-color: #5D6D7E !important;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.el-table .mud-table-head th svg {
+  fill: white !important;
+}
+.el-table .mud-table-head th span {
+  color: white !important;
+}
+.el-table .mud-table-cell {
+  font-size: 1rem !important;
+}
+.el-table thead th:has(.mud-table-cell-checkbox) {
+  width: 48px;
+  padding-right: 0;
+}
+.el-table thead th:has(.mud-table-cell-checkbox) .mud-checkbox {
+  margin-right: 0;
+}
+.el-table thead th:has(.mud-table-cell-checkbox) .mud-checkbox .mud-button-root {
+  padding-right: 0;
+}
+.el-table thead th:has(.mud-table-cell-checkbox) .mud-checkbox .mud-button-root .mud-icon-root {
+  margin-top: 0;
+}
+.el-table tbody td:has(.mud-table-cell-checkbox) {
+  padding-right: 0;
+}
+
+.el-bin-location {
+  height: auto;
+  aspect-ratio: 3/2;
+  padding: 0 !important;
+  clear: both;
+}
+.el-bin-location__title {
+  margin: 2em 0 0 4px;
+}
+.el-bin-location .bin-grid {
+  display: grid;
+  height: 100%;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 8px !important;
+}
+.el-bin-location .bin-grid .bin-grid-item {
+  margin: 0;
+  padding: 0;
+}
+.el-bin-location .bin-grid .bin-grid-item .mud-paper {
+  height: 100%;
+  background-color: var(--colors-wet-asphalt-90);
+  border: 1px solid white;
+  border-radius: 0;
+}
+.el-bin-location .bin-grid .bin-grid-item .mud-paper.mud-paper-outlined {
+  background-color: var(--colors-wet-asphalt-66);
+  border: 1px solid white;
+}
+
+.el-alert {
+  border-radius: 8px;
+  position: relative;
+}
+.el-alert .mud-alert-close {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+}
+.el-alert__title {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--colors-black-20);
+}
+.el-alert__title.size--small {
+  font-size: 16px;
+  line-height: 26px;
+}
+.el-alert__body {
+  font-size: 23px;
+  font-weight: 400;
+  color: var(--colors-black-20) !important;
+}
+.el-alert__body.size--small {
+  font-size: 16px;
+}
+.el-alert-fixed {
+  width: 332px;
+}
+.el-alert--normal {
+  color: var(--colors-black-20) !important;
+  background-color: white !important;
+  border: 2px solid var(--colors-wet-asphalt-99);
+}
+.el-alert--normal .mud-alert-icon, .el-alert--normal .mud-icon-root {
+  color: var(--colors-black-20) !important;
+}
+.el-alert--success {
+  background-color: var(--colors-nephritis-99) !important;
+  border: 2px solid var(--colors-nephritis-40);
+}
+.el-alert--success .mud-alert-icon, .el-alert--success .mud-icon-root {
+  color: var(--colors-nephritis-40) !important;
+}
+.el-alert--warning {
+  background-color: var(--colors-orange-99) !important;
+  border: 2px solid var(--colors-orange-50);
+}
+.el-alert--warning .mud-alert-icon, .el-alert--warning .mud-icon-root {
+  color: var(--colors-orange-50) !important;
+}
+.el-alert--error {
+  background-color: var(--colors-ux-sharp-red-99) !important;
+  border: 2px solid var(--colors-ux-sharp-red-50);
+}
+.el-alert--error .mud-alert-icon, .el-alert--error .mud-icon-root {
+  color: var(--colors-ux-sharp-red-50) !important;
+}
+
+.mud-picker-container .mud-toolbar {
+  background-color: var(--colors-wet-asphalt-66) !important;
+}
+
+.mud-slider-filled {
+  height: 3px !important;
+  background-color: var(--mud-palette-secondary) !important;
+}
+
+.mud-slider-error .mud-slider-filled {
+  height: 3px !important;
+  background-color: var(--mud-palette-error) !important;
+}
+
+.el-radio-title {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 35px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px !important;
+  line-height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 4.5px !important;
+  position: relative;
+}
+
+.el-radio-text {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 0px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px !important;
+  line-height: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  letter-spacing: 0.01em;
+  margin-top: 0px !important;
+}
+
+.mud-radio-button {
+  color: var(--mud-palette-action-default) !important;
+}
+
+.el-checkbox-title {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 35px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px !important;
+  line-height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 4.5px !important;
+  position: relative;
+}
+
+.el-checkbox-text {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 0px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px !important;
+  line-height: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  letter-spacing: 0.01em;
+  margin-top: 0px !important;
+}
+
+.mud-checkbox > span {
+  color: var(--mud-palette-action-default) !important;
+}
+
+.mud-chip-color-primary {
+  background-color: var(--mud-palette-secondary) !important;
+  color: var(--mud-palette-secondary-text) !important;
+}
+
+.mud-chip-outlined.mud-chip-color-primary {
+  background-color: transparent !important;
+  color: var(--mud-palette-secondary) !important;
+  border: 1px solid var(--mud-palette-secondary) !important;
+}
+
+.mud-pagination > .mud-pagination-item-selected > .mud-button-root {
+  background-color: var(--mud-palette-secondary) !important;
+  border: 1px solid var(--mud-palette-secondary) !important;
+}
+
+.el-stack > .mud-paper {
+  background-color: var(--mud-palette-secondary) !important;
+}
+
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-normal,
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-info {
+  color: var(--colors-black-20) !important;
+  background-color: white !important;
+  border: 2px solid var(--colors-wet-asphalt-99) !important;
+}
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-normal .mud-snackbar-icon,
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-info .mud-snackbar-icon {
+  color: var(--colors-black-20) !important;
+}
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-warning,
+#mud-snackbar-container .mud-snackbar.mud-alert-outlined-warning,
+#mud-snackbar-container .mud-snackbar.mud-alert-text-warning {
+  color: var(--colors-orange-50) !important;
+  background-color: var(--colors-orange-99) !important;
+  border: 2px solid var(--colors-orange-50) !important;
+}
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-warning .mud-snackbar-icon,
+#mud-snackbar-container .mud-snackbar.mud-alert-outlined-warning .mud-snackbar-icon,
+#mud-snackbar-container .mud-snackbar.mud-alert-text-warning .mud-snackbar-icon {
+  color: var(--colors-orange-50) !important;
+}
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-success,
+#mud-snackbar-container .mud-snackbar.mud-alert-outlined-success,
+#mud-snackbar-container .mud-snackbar.mud-alert-text-success {
+  color: var(--colors-nephritis-40) !important;
+  background-color: var(--colors-nephritis-99) !important;
+  border: 2px solid var(--colors-nephritis-40) !important;
+}
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-success .mud-snackbar-icon,
+#mud-snackbar-container .mud-snackbar.mud-alert-outlined-success .mud-snackbar-icon,
+#mud-snackbar-container .mud-snackbar.mud-alert-text-success .mud-snackbar-icon {
+  color: var(--colors-nephritis-40) !important;
+}
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-error,
+#mud-snackbar-container .mud-snackbar.mud-alert-outlined-error,
+#mud-snackbar-container .mud-snackbar.mud-alert-text-error {
+  color: var(--colors-ux-sharp-red-50) !important;
+  background-color: var(--colors-ux-sharp-red-99) !important;
+  border: 2px solid var(--colors-ux-sharp-red-50) !important;
+}
+#mud-snackbar-container .mud-snackbar.mud-alert-filled-error .mud-snackbar-icon,
+#mud-snackbar-container .mud-snackbar.mud-alert-outlined-error .mud-snackbar-icon,
+#mud-snackbar-container .mud-snackbar.mud-alert-text-error .mud-snackbar-icon {
+  color: var(--colors-ux-sharp-red-50) !important;
+}
+
+.el-textfield--normal .mud-input.mud-input-underline::before {
+  border-bottom: 2px solid var(--colors-belize-50) !important;
+}
+.el-textfield--normal .mud-input.mud-input-underline::after {
+  border-bottom: 3px solid var(--colors-belize-50) !important;
+}
+.el-textfield--error .mud-input.mud-input-underline::before {
+  border-bottom: 2px solid var(--mud-palette-error) !important;
+}
+.el-textfield--error .mud-input.mud-input-underline::after {
+  border-bottom: 3px solid var(--mud-palette-error) !important;
+}
+.el-textfield--success .mud-input.mud-input-underline::before {
+  border-bottom: 2px solid var(--mud-palette-success) !important;
+}
+.el-textfield--success .mud-input.mud-input-underline::after {
+  border-bottom: 3px solid var(--mud-palette-success) !important;
+}
+.el-textfield--normal .mud-input:focus-within ~ label.mud-input-label.mud-input-label-inputcontrol {
+  color: var(--colors-belize-50) !important;
+}
+.el-textfield--error .mud-input-label-inputcontrol {
+  color: var(--mud-palette-error) !important;
+}
+.el-textfield--success .mud-input-label-inputcontrol {
+  color: var(--mud-palette-success) !important;
+}
+.el-textfield--normal .mud-icon-root.mud-svg-icon {
+  fill: var(--colors-wet-asphalt-66) !important;
+}
+.el-textfield--error .mud-icon-root.mud-svg-icon {
+  fill: var(--mud-palette-error) !important;
+}
+.el-textfield--success .mud-icon-root.mud-svg-icon {
+  fill: var(--mud-palette-success) !important;
+}
+.el-textfield--background-blue .mud-input-control-input-container {
+  background-color: var(--colors-belize-95) !important;
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+.el-textfield--background-light-blue .mud-input-control-input-container {
+  background-color: var(--colors-belize-99) !important;
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+
+.el-textfield .mud-input-control-input-container .mud-input.mud-input-filled, .el-textfield .mud-input-control-input-container .mud-input.mud-input-outlined {
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+.el-textfield .mud-input-control-input-container .mud-input.mud-input-filled > .mud-input-adornment-end, .el-textfield .mud-input-control-input-container .mud-input.mud-input-outlined > .mud-input-adornment-end {
+  position: relative;
+  right: -7px;
+  top: 8px;
+}
+.el-textfield .mud-input-control-input-container .mud-input.mud-input-text {
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+.el-textfield .mud-input-control-input-container .mud-input.mud-input-text > .mud-input-adornment-end {
+  position: relative;
+  right: 10px;
+  top: 0px;
+}
+
+.mud-input-helper-text {
+  color: var(--colors-black-20) !important;
+}
+
+.mud-input-adornment-end {
+  margin-bottom: 16px !important;
+}
+
+.mud-input-label-inputcontrol {
+  color: var(--colors-black-20) !important;
+  padding-left: 10px !important;
+}
+
+.mud-input > input.mud-input-root.mud-input-root-text {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.mud-input > input.mud-input-root.mud-input-root-filled {
+  padding: 25px 12px 6px !important;
+}
+
+.mud-input-label-filled.mud-input-label-inputcontrol,
+.mud-input-label-outlined.mud-input-label-inputcontrol {
+  padding-left: 0px !important;
+}
+
+.el-mega-menu-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 12px 24px;
+  border-radius: 100px;
+  border: 1px solid var(--colors-white);
+  background-color: var(--colors-white);
+  color: var(--colors-belize-50);
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.144px;
+}
+.el-mega-menu-item:hover, .el-mega-menu-item--active {
+  background-color: var(--colors-belize-99);
+  border-color: var(--colors-wet-asphalt-90);
+  text-decoration-line: underline;
+}
+
+.el-big-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+}
+.el-big-text--small {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.144px;
+}
+.el-big-text--medium {
+  font-size: 23px;
+  line-height: 32px;
+}
+.el-big-text--large {
+  font-size: 30px;
+  line-height: 40px;
+  letter-spacing: 0.24px;
+}
+.el-big-text--xlarge {
+  font-size: 45px;
+  line-height: 56px;
+}
+.el-big-text--bold {
+  font-weight: 700;
+}
+
+.el-appbar-button {
+  min-width: 133px;
+  height: 100%;
+  color: white;
+  border-radius: 0;
+}
+.el-appbar-button svg {
+  position: relative;
+  top: -4px;
+}
+.el-appbar-button .mud-button-label {
+  position: relative;
+  top: 3px;
+  position: relative;
+  top: 3px;
+}
+.el-appbar-popover .el-appbar-button {
+  color: var(--colors-belize-50);
+}
+
+.el-appbar .mud-toolbar .mud-nav-item a {
+  line-height: 35px;
+}
+.el-appbar .mud-toolbar .mud-nav-item :hover {
+  background-color: white;
+  color: var(--colors-belize-50);
+}
+
+.el-dialog--white .mud-dialog-content {
+  background-color: var(--colors-white);
+}
+.el-dialog--grey .mud-dialog-content {
+  background-color: var(--colors-wet-asphalt-95) !important;
+}
+.el-dialog--grey .mud-input {
+  background-color: var(--colors-white) !important;
+}
+
+.delete-dialog .mud-dialog-content {
+  padding: 0 !important;
+}
+.delete-dialog__title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: 0.12px;
+  color: var(--colors-black-20);
+}
+.delete-dialog__title__icon {
+  position: relative;
+  top: 5px;
+}
+.delete-dialog__content {
+  padding: 24px 32px;
+}
+/*# sourceMappingURL=/home/runner/work/ui-blazor-component-library/ui-blazor-component-library/ElUI.ComponentLib/wwwroot/ComponentLib.css.map */

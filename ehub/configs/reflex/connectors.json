@@ -1,0 +1,176 @@
+{
+	"HTIConnector": {
+		"Type": "HTIConnector",
+		"Enabled": true,
+		"PacketTransfer": {
+			"DbPath": ".\\databases\\ReflexDb.db",
+			"ChannelGroups": {
+				"Incoming": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 1,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"Channels": [
+						"ReflexToEHub"
+					]
+				},
+				"Outgoing": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 1,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"Channels": [
+						"eHubToReflex"
+					]
+				},
+				"Errors": {
+					"DbPollInterval": "1s",
+					"PacketsPerCycle": 1,
+					"PacketRetention": "30d",
+					"CleanerInterval": "1h",
+					"CanResend": false,
+					"Channels": [
+						"ReflexToEHub:Error",
+						"eHubToReflex:Error"
+					]
+				}
+			}
+		},
+		"HttpIncoming": {
+			"Kestrel": {
+				"Endpoints": {
+					"Https": {
+						"Url": "https://ehub-prd.santeservice.asso.fr:443",
+						"Certificate": {
+							"Path": "ehub.pfx",
+							"Password": "FSS"
+						}
+					},
+					"Http": {
+						"Url": "http://0.0.0.0:36001"
+					}
+				}
+			},
+			"Auth": {
+				"Basic": {
+					"DummyUsers": [
+						{
+							"Username": "adm",
+							"Password": "2040"
+						}
+					]
+				}
+			},
+			"Endpoints": [
+				{
+					"Path": "/api/pi/export",
+					"Topic": "FSS.ProductInformation",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "ProductInformation"
+				},
+				{
+					"Path": "/api/gr/export",
+					"Topic": "FSS.GoodsReceival",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "GoodsReceival"
+				},
+				{
+					"Path": "/api/pl/export",
+					"Topic": "FSS.PickList",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "PickList"
+				},
+				{
+					"Path": "/api/ic/export",
+					"Topic": "FSS.InventoryCount",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "InventoryCount"
+				},
+				{
+					"Path": "/api/RouteInfo",
+					"Topic": "eController.Import.RouteInfo",
+					"HttpMethod": "POST",
+					"ContentType": "application/json"
+				},
+				{
+					"Path": "/api/WorkDone",
+					"Topic": "eController.Import.WorkDone",
+					"HttpMethod": "POST",
+					"ContentType": "application/json"
+				}
+			]
+		},
+		"HttpOutgoing": {
+			"Api": {
+				"Reflex": {
+					"BaseAddress": "https://reflex-prd.santeservice.asso.fr",
+					"Authorization": {
+						"Type": "BearerToken",
+						"BearerToken": {
+							"AccessTokenUrl": "https://reflex-prd.santeservice.asso.fr/reflexWS/JWTServlet",
+							"ContentType": "Query",
+							"TokenExpirationTime": "1h",
+							"Parameters": {
+								"login": "AG_Rfx-eMan-JWT-PRD",
+								"password": "2ba55be67b0d4fa9904fklpFOP!"
+							}
+						}
+					}
+				}
+			},
+			"Endpoints": [
+				{
+					"Api": "Reflex",
+					"Path": "/reflexWS/rest/services/balance_correction/VLG",
+					"Topic": "FSS.BalanceCorrection",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "BalanceCorrection"
+				},
+				{
+					"Api": "Reflex",
+					"Path": "/reflexWS/rest/services/confirmed_pick/VLG",
+					"Topic": "FSS.ConfirmedPick",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "ConfirmedPick"
+				},
+				{
+					"Api": "Reflex",
+					"Path": "/reflexWS/rest/services/placed_goods/VLG",
+					"Topic": "FSS.PlacedGoods",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "PlacedGoods"
+				},
+				{
+					"Api": "Reflex",
+					"Path": "/reflexWS/rest/services/start_pick/VLG",
+					"Topic": "FSS.PickActivityStarted",
+					"HttpMethod": "POST",
+					"ContentType": "application/json",
+					"MessageType": "PickActivityStarted"
+				},
+				{
+					"Api": "Reflex",
+					"Path": "/reflexWS/rest/services/box_number/VLG",
+					"Topic": "eController.Export.BoxNumber",
+					"HttpMethod": "POST",
+					"ContentType": "application/json"
+				},
+				{
+					"Api": "Reflex",
+					"Path": "/reflexWS/rest/services/shipment_validation/VLG",
+					"Topic": "eController.Export.ShipmentValidation",
+					"HttpMethod": "POST",
+					"ContentType": "application/json"
+				}
+			]
+		},
+		"Config": {}
+	}
+}

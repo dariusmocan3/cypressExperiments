@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ePlugin.Engine</name>
+    </assembly>
+    <members>
+        <member name="E:ePlugin.Engine.Client.IPluginPublisher.AfterPluginAdded">
+            <summary>Gets called when a new plugin has been loaded.</summary>
+        </member>
+        <member name="E:ePlugin.Engine.Client.IPluginPublisher.AfterPluginRemoved">
+            <summary>Gets called when a plugin has been unloaded.</summary>
+        </member>
+        <member name="E:ePlugin.Engine.Client.IPluginPublisher.AfterPluginsDiffed">
+            <summary>Gets callen when one or more plugins have been added and/or deleted at once.<br/>
+            You can access the new state after changes from the <see cref="P:ePlugin.Engine.Client.IPluginPublisher.Plugins"/> field.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Features.AssemblyLoadContext.ILoadParentOptions.Parent">
+            <summary>Loads this plugin as a child of <c>Parent</c>. This means that all assemblies, including the parent main assembly itself, can be referenced from this plugin.</summary>
+        </member>
+        <member name="T:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category">
+            <summary>
+            Defines unpack parameter for each package part
+            </summary>
+            <param name="Tag">How to classify files matching <see cref="P:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category.CategoryMatcher"/>.</param>
+            <param name="Include">Whether to include files from this category in the final plugin.</param>
+            <param name="Filter">File matching criteria for this category.</param>
+            <param name="CategoryMatcher">A <see cref="T:Microsoft.Extensions.FileSystemGlobbing.Matcher"/> filtering for this category</param>
+        </member>
+        <member name="M:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category.#ctor(ePlugin.Engine.Files.SpecTag,System.Boolean,System.Collections.Immutable.ImmutableArray{System.String},Microsoft.Extensions.FileSystemGlobbing.Matcher)">
+            <summary>
+            Defines unpack parameter for each package part
+            </summary>
+            <param name="Tag">How to classify files matching <see cref="P:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category.CategoryMatcher"/>.</param>
+            <param name="Include">Whether to include files from this category in the final plugin.</param>
+            <param name="Filter">File matching criteria for this category.</param>
+            <param name="CategoryMatcher">A <see cref="T:Microsoft.Extensions.FileSystemGlobbing.Matcher"/> filtering for this category</param>
+        </member>
+        <member name="P:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category.Tag">
+            <summary>How to classify files matching <see cref="P:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category.CategoryMatcher"/>.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category.Include">
+            <summary>Whether to include files from this category in the final plugin.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category.Filter">
+            <summary>File matching criteria for this category.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Features.ImportPackage.ImportPackageDefinition.Category.CategoryMatcher">
+            <summary>A <see cref="T:Microsoft.Extensions.FileSystemGlobbing.Matcher"/> filtering for this category</summary>
+        </member>
+        <member name="M:ePlugin.Engine.Modules.Cleaner.CleanUtil.Clean(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.FileProviders.IFileProvider,System.IO.DirectoryInfo)">
+            <summary>
+            Clean the cache directory from unused files
+            </summary>
+        </member>
+        <member name="M:ePlugin.Engine.Modules.CompileRazor.Build.FileProviderRazorFileSystem.EnumerateItems(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ePlugin.Engine.Modules.CompileRazor.Build.FileProviderRazorFileSystem.GetItem(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ePlugin.Engine.Modules.CompileRazor.Build.FileProviderRazorFileSystem.GetItem(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.CompileRazor.CompileRazorOptions">
+            <summary>
+            Enables compilation of Razor files in plugins.<br/>
+            This will also require the 'CompileScripts' module to work.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.CompileRazor.CompileRazorOptions.CompileFilter">
+            <summary>Glob patterns which files from the 'Scripts' context to compile</summary>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.CompileScripts.CompileScriptsOptions">
+            <summary>Enables compilation of C# files in plugins.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.CompileScripts.CompileScriptsOptions.OptimizationLevel">
+            <summary>The compilation mode. Can be "Debug" or "Release"</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.CompileScripts.CompileScriptsOptions.SaveDll">
+            <summary>When <see langword="true"/> writes the compiled DLL to the plugin folder.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.CompileScripts.CompileScriptsOptions.CompileFilter">
+            <summary>Glob patterns which files from the 'Scripts' context to compile</summary>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions">
+            <summary>Links any files into a plugin.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.Name">
+            <summary>Sets the default plugin name. If not set, the name will be an internal identifier.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.Watch">
+            <summary>When <see langword="true"/> watches the linked files for changes and automatically re-builds new content.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.Parent">
+            <inheritdoc cref="P:ePlugin.Engine.Features.AssemblyLoadContext.ILoadParentOptions.Parent" />
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.Config">
+            <summary>A single path or an array of paths of files or folders to be linked as 'Config' files.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.Dependencies">
+            <summary>A single path or an array of paths of files or folders to be linked as 'Dependency' files.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.Libraries">
+            <summary>A single path or an array of paths of files or folders to be linked as 'Libraries' files.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.Scripts">
+            <summary>A single path or an array of paths of files or folders to be linked as 'Scripts' files.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.Custom">
+            <summary>A single path or an array of paths of files or folders to be linked as 'Custom' files.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.ConfigFilter">
+            <summary>Glob patterns to filter the 'Config' files in the specified paths.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.DependenciesFilter">
+            <summary>Glob patterns to filter the 'Dependency' files in the specified paths.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.LibrariesFilter">
+            <summary>Glob patterns to filter the 'Libraries' files in the specified paths.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.ScriptsFilter">
+            <summary>Glob patterns to filter the 'Scripts' files in the specified paths.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportFiles.ImportFilesOptions.CustomFilter">
+            <summary>Glob patterns to filter the 'Custom' files in the specified paths.</summary>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.ImportNuget.ImportNugetOptions">
+            <summary>Imports a Nuget package from an online feed.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportNuget.ImportNugetOptions.Package">
+            <summary>The exact package name to import.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportNuget.ImportNugetOptions.Version">
+            <summary>
+            The package version to import.<br/>
+            This can either be a specific version or a version range.<br/>
+            Examples: <c>1.0.0</c>, <c>1.*</c>, <c>1.0.0-*</c>, <c>[1.0,2.0]</c> <br/>
+            See <seealso cref="!:https://learn.microsoft.com/en-us/nuget/concepts/package-versioning?tabs=semver20sort#version-ranges"/> for more information.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportNuget.ImportNugetOptions.Feed">
+            <summary>
+            The feed to import the package from.
+            If not set, will take the system wide configured nuget feeds.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportNuget.ImportNugetOptions.Configure">
+            <inheritdoc cref="T:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions"/>/>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions">
+            <summary>Links a C# project files into a plugin.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions.Watch">
+            <summary>When <see langword="true"/> watches the project for changes and automatically re-copies and loads new content</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions.Path">
+            <summary>The path to the project folder containing the *.csproj file</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions.Name">
+            <summary>Overrides the default inferred project name</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions.Parent">
+            <inheritdoc cref="P:ePlugin.Engine.Features.AssemblyLoadContext.ILoadParentOptions.Parent"/>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions.IncludeConfig">
+            <summary>Includes all files marked as 'Config' in the project</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions.IncludeDependencies">
+            <summary>Includes all files marked as 'Dependency' in the project (Usually all DLLs except the main)</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions.IncludeLibraries">
+            <summary>Includes all files marked as 'Library' in the project (Usually the main DLL)</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.ImportProject.ImportProjectOptions.IncludeScripts">
+            <summary>Includes all files marked as 'Script' in the project (Usually all C# files)</summary>
+        </member>
+        <member name="F:ePlugin.Engine.Modules.LoadAssemblies.AllowedVersionRoll.Never">
+            <summary>Assembly will only be loaded in the exact version</summary>
+        </member>
+        <member name="F:ePlugin.Engine.Modules.LoadAssemblies.AllowedVersionRoll.Major">
+            <summary>Assembly will roll forward the major version. This effectively allows all versions smaller or equal to loaded version.</summary>
+            <remarks>E.g 1.1.2 or 2.0.0 will roll forward to 2.3.1; 2.3.4 or 3.1.0 will not roll forward to 2.3.1</remarks>
+        </member>
+        <member name="F:ePlugin.Engine.Modules.LoadAssemblies.AllowedVersionRoll.Minor">
+            <summary>Assembly will roll forward the minor version. The major version must match the loaded assembly.</summary>
+            <remarks>E.g 2.2.3 or 2.3.0 will roll forward to 2.3.1; 1.1.0 or 2.3.7 will not roll forward to 2.3.1</remarks>
+        </member>
+        <member name="F:ePlugin.Engine.Modules.LoadAssemblies.AllowedVersionRoll.Patch">
+            <summary>Assembly will roll forward the patch version. The major and minor version must match the loaded assembly.</summary>
+            <remarks>E.g 1.2.3 will roll forward to 1.2.5; 1.1.0 or 1.2.7 will not roll forward to 1.2.5</remarks>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.LoadAssemblies.LoadAssembliesOptions">
+            <summary>[This Module is always Required] Loads assemblies into the runtime context.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.LoadAssembliesOptions.VersionRebind">
+            <summary>
+            Allows declaring rules how assemblies with mismatching versions should be loaded.<br/>
+            By default, rolling forward on minor versions is allowed.<br/>
+            For example, if a plugin requires version <c>1.0.0</c> of a library, but the runtime has <c>1.1.0</c>, it will use the already loaded <c>1.1.0</c> version.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRuleConfig.Assembly">
+            <inheritdoc cref="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.Assembly"/>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRuleConfig.Plugin">
+            <inheritdoc cref="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.Plugin"/>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRuleConfig.From">
+            <inheritdoc cref="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.From"/>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRuleConfig.To">
+            <inheritdoc cref="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.To"/>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRuleConfig.Kind">
+            <inheritdoc cref="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.Kind"/>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule">
+            <summary>
+            Multiple match requirements are logically-and combined. Meaning all parts must match for this rule to be applied.
+            </summary>
+        </member>
+        <member name="M:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.#ctor(System.String,System.String,NuGet.Versioning.VersionRange,NuGet.Versioning.VersionRange,ePlugin.Engine.Modules.LoadAssemblies.AllowedVersionRoll)">
+            <summary>
+            Multiple match requirements are logically-and combined. Meaning all parts must match for this rule to be applied.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.Assembly">
+            <summary>
+            Rule matches when <c><see cref="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.Assembly"/>==<see langword="null"/></c> or equals to the Full Assembly name being loaded.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.Plugin">
+            <summary>
+            Rule matches when <c><see cref="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.Plugin"/>==<see langword="null"/></c> or equals to the Plugin context name.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.From">
+            <summary>
+            The assembly version which is requested to be loaded.<br/>
+            Defaults to '*' (>= 0.0.0) which includes every version.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.To">
+            <summary>
+            The assembly version which is available to be loaded.<br/>
+            Defaults to '*' (>= 0.0.0) which includes every version.
+            </summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.LoadAssemblies.VersionRebindRule.Kind">
+            <summary>
+            Defines how version are allowed to roll forward.<br/>
+            Defaults to <see cref="F:ePlugin.Engine.Modules.LoadAssemblies.AllowedVersionRoll.Never"/>
+            </summary>
+            <seealso cref="T:ePlugin.Engine.Modules.LoadAssemblies.AllowedVersionRoll"/>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.SetParentPlugin.SetParentPluginOptions">
+            <summary>Sets plugins as child-plugins to other plugins.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.SetParentPlugin.SetParentPluginOptions.Plugins">
+            <summary>Loads <c>Key</c> plugin as a child of <c>Value</c>. This means that all assemblies, including the parent main assembly itself, can be referenced from this plugin.</summary>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.UnpackPlugins.UnpackPluginsOptions">
+            <summary>Loads 'eplugin', 'nupgk' and 'zip' files from the 'Pkg' folder.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.UnpackPluginsOptions.Path">
+            <summary>A path where to look for packages instead of the 'Pkg' folder</summary>
+            <remarks>Default1: <c>"$DataPath/Pkg"</c></remarks>
+            <value>Default2: <c>"$DataPath/Pkg"</c></value>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.UnpackPluginsOptions.DefaultConfigure">
+            <summary>The default unpacking behavior for all packages</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.UnpackPluginsOptions.Configure">
+            <summary>Custom unpacking behavior for specific packages. The key matches by: <c>[[[[&lt;ProjectName&gt;].&lt;Version&gt;]#&lt;tag&gt;].&lt;file_extension&gt;]</c></summary>
+        </member>
+        <member name="T:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions">
+            <summary>Options for unpacking the package.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions.Ignore">
+            <summary>Ignores the entire plugin file when true.</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions.Name">
+            <summary>Overrides the default inferred package name</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions.IncludeConfig">
+            <summary>Unpacks all files marked as 'Config' in the package</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions.IncludeDependencies">
+            <summary>Unpacks all files marked as 'Dependency' in the package (Usually all DLLs except the main)</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions.IncludeLibraries">
+            <summary>Unpacks all files marked as 'Library' in the package (Usually the main DLL)</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions.IncludeScripts">
+            <summary>Unpacks all files marked as 'Script' in the package (Usually all c# files)</summary>
+        </member>
+        <member name="P:ePlugin.Engine.Modules.UnpackPlugins.PackageUnpackOptions.IncludeCustom">
+            <summary>Unpacks all files marked as 'Custom' in the package (All other files that don't match the previous 4 categories)</summary>
+        </member>
+        <member name="T:ePlugin.Engine.PluginEngine">
+            <summary>The core Plugin Engine aka "Pleng"</summary>
+        </member>
+        <member name="M:ePlugin.Engine.PluginEngine.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptionsMonitor{ePlugin.Engine.Config.PlengOptions},ePlugin.Engine.PlengModuleResolver)">
+            <summary>The core Plugin Engine aka "Pleng"</summary>
+        </member>
+        <member name="M:ePlugin.Engine.PluginEngine.LoadPipeline(ePlugin.Engine.Config.ImmutablePlengOptions)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <returns><see langword="true"/> if pipeline has changed, <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="M:ePlugin.Engine.Util.Graph`1.TopologicalSort(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates a topologically sorted list by Kahn's algorithm, with all nodes reachable from <paramref name="startingNodes"/> as starting nodes.
+            </summary>
+            <param name="startingNodes"></param>
+            <returns>The ordered list of nodes.</returns>
+            <exception cref="T:System.Exception">Throws when the graph has cycles.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionExtensions.Window2``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns an Enumerator over all contiguous windows of length 2.
+            The windows overlap. If the <paramref name="source"/> is shorter than 2,
+            the iterator returns no values.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionExtensions.Window3``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns an Enumerator over all contiguous windows of length 3.
+            The windows overlap. If the <paramref name="source"/> is shorter than 3,
+            the iterator returns no values.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.CollectionExtensions.Window``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Returns an Enumerator over all contiguous windows of length <paramref name="size"/>.
+            The windows overlap. If the <paramref name="source"/> is shorter than <paramref name="size"/>,
+            the iterator returns no values.
+            </summary>
+            <param name="size">The window size.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">When <paramref name="size"/> is 0 or negative.</exception>
+        </member>
+        <member name="T:eController.Util.Configuration.OneOrManyStrings">
+            <summary>Utility class which allows values in the appsettings.json to be read as 
+            <c>"key":"value"</c> or <c lang="json">"key":["value"]</c>
+            in a unified way. Both with result in <c>["value"]</c> when read.</summary>
+        </member>
+        <member name="M:eController.Util.FileSystemUtil.GetNormalizedPath(System.String)">
+            <summary>Expands a path to the full path and normalizes the casing if the filesystem is case insensitive.</summary>
+            <param name="path">The path to normalize.</param>
+            <returns>The normalized path.</returns>
+        </member>
+    </members>
+</doc>

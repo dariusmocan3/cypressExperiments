@@ -1,0 +1,110 @@
+{
+  "AtPlcConnector": {
+    "Type": "AtPlcConnector",
+    "Enabled": true,
+    "UIViews": [ "All", "Each", "Receive", "Send", "no Ack" ],
+    "PacketTransfer": {
+      "DbPath": ".\\databases\\AtPlcConnector.db",
+      "ChannelGroups": {
+        "Recv": {
+          "DbPollInterval": "3s",
+          "PacketsPerCycle": 100,
+          "PacketRetention": "10d",
+          "CleanerInterval": "1h",
+          "Channels": [ "Receiver", "ReceiverAck" ]
+        },
+        "RecvAreaStatus": {
+          "DbPollInterval": "10s",
+          "PacketsPerCycle": 100,
+          "PacketRetention": "2d",
+          "CleanerInterval": "1h",
+          "Channels": [ "ReceiverAreaStatus" ]
+        },
+        "Send": {
+          "DbPollInterval": "3s",
+          "PacketsPerCycle": 100,
+          "PacketRetention": "10d",
+          "CleanerInterval": "1h",
+          "Channels": [ "Sender", "Sender_Ack" ]
+        },
+        "SendAreaStatus": {
+          "DbPollInterval": "10s",
+          "PacketsPerCycle": 100,
+          "PacketRetention": "2d",
+          "CleanerInterval": "1h",
+          "Channels": [ "SenderAreaStatus" ]
+        },
+        "ReceiverToMfc": {
+          "DbPollInterval": "3s",
+          "PacketsPerCycle": 100,
+          "PacketRetention": "10d",
+          "CleanerInterval": "1h",
+          "Channels": [ "ReceiverToMfc" ]
+        }
+      }
+    },
+    "Config": {
+		"PlcName": "01",
+		"MfcName": "CV",
+		"IpAddress": "10.9.53.110",
+		"SndPort": 3700,
+		"RcvPort": 3701,
+		"MaxTelRepeatTillSendInit": 10,
+		"StatusRequestSendIntervall": "60s",
+		"RepeatInterval": "5s",
+		"Timeout": "60s",
+		"HostConfiguration": {
+			"UseTwoSockets": true,
+			"Sender": "Client",
+			"Receiver": "Client"
+		}
+    }
+  },
+  "ATCyclicConnector": {
+    "Type": "ATCyclicConnector",
+    "Enabled": true,
+    "UIViews": [ "All", "Each", "Receive", "Send", "no Ack" ],
+    "PacketTransfer": {
+      "DbPath": "..\\..\\databases\\ehub_publish\\ATCyclicConnector.db",
+      "ChannelGroups": {
+        "Recv": {
+          "DbPollInterval": "3s",
+          "PacketsPerCycle": 100,
+          "PacketRetention": "1d",
+          "CleanerInterval": "1h",
+          "Channels": [ "Receiver", "ReceiverAck" ]
+        },
+        "Send": {
+          "DbPollInterval": "3s",
+          "PacketsPerCycle": 100,
+          "PacketRetention": "1d",
+          "CleanerInterval": "1h",
+          "Channels": [ "Sender", "Sender_Ack" ]
+        },
+        "ReceiverToMfc": {
+          "DbPollInterval": "3s",
+          "PacketsPerCycle": 100,
+          "PacketRetention": "1d",
+          "CleanerInterval": "1h",
+          "Channels": [ "ReceiverToMfc" ]
+        }
+      }
+    },
+    "Config": {
+      "PlcName": "01",
+      "MfcName": "CV",
+      "IpAddress": "10.9.53.110",
+      "SndPort": 3703,
+      "RcvPort": 3702,
+	  "PlcTopicName": "01.Cyclic",
+      "MaxTelRepeatTillSendInit": 10,
+      "RepeatInterval": "5s",
+      "Timeout": "60s",
+      "HostConfiguration": {
+        "UseTwoSockets": false,
+        "Sender": "Server",
+        "Receiver": "Server"
+      }
+    }
+  }
+}

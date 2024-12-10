@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>eController.WebUI.PlugIn</name>
+    </assembly>
+    <members>
+        <member name="T:eController.WebUI.PlugIn.ServerExtensionService">
+            <summary>
+            Base class for Server-Side Plugins. This class will run in the ASP Server backend.
+            </summary>
+            <remarks>
+            You can inject the following Types into your constructor:<br/>
+            <see cref="T:eController.WebUI.PlugIn.IPluginHostEnvironment"/>,
+            <see cref="T:Microsoft.AspNetCore.Hosting.IWebHostEnvironment"/>,
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>,
+            <see cref="T:Microsoft.Extensions.Configuration.ConfigurationManager"/>,
+            <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>,
+            <see cref="T:Microsoft.AspNetCore.Builder.ConfigureWebHostBuilder"/>,
+            <see cref="T:Microsoft.AspNetCore.Builder.ConfigureHostBuilder"/>,
+            <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/>,
+            <see cref="T:Microsoft.Extensions.Logging.Logger`1"/>
+            </remarks>
+        </member>
+        <member name="M:eController.WebUI.PlugIn.ServerExtensionService.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure gets called after all dependencies have been built.<br/>
+            You can get your services here from app.Services
+            as well as configure the ASP.NET Core pipeline.
+            </summary>
+        </member>
+        <member name="T:eController.WebUI.PlugIn.IPluginHostEnvironment">
+            <summary>Provides information about the environment a plugin is running in.</summary>
+        </member>
+    </members>
+</doc>
