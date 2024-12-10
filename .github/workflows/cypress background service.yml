@@ -1,4 +1,4 @@
-name: "Start eHub and Run Cypress Tests as background"
+name: "bliue"
 
 on:
   workflow_dispatch: # Allows manual execution
@@ -6,7 +6,7 @@ on:
 jobs:
   run-tests:
     runs-on: windows-latest
-    timeout-minutes: 5 # Extended timeout to accommodate both app and tests
+    timeout-minutes: 15 # Extended timeout to accommodate both app and tests
 
     steps:
       # Step 1: Checkout the repository
