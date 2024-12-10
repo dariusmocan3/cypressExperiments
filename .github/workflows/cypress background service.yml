@@ -70,6 +70,10 @@ jobs:
           echo "Installing dependencies..."
           npm install
 
+      - name: Check if eController.IntegrationHub.exe is running
+        shell: cmd
+        run: tasklist | findstr IntegrationHub.exe
+
       # Step 8: Run Cypress Tests
       - name: Run Cypress Tests
         run: |
