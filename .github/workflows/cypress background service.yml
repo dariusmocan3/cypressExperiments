@@ -37,7 +37,7 @@ jobs:
           Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow
 
       - name: Check if eController.IntegrationHub.exe is running
-        shell: pws
+        shell: pwsh
         run: Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
 
             # Step 5: Wait until the application is listening on port 9880
