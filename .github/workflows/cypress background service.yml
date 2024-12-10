@@ -38,7 +38,14 @@ jobs:
 
       - name: Check if eController.IntegrationHub.exe is running
         shell: pwsh
-        run: Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
+        run: |
+          $process = Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
+          if ($process) {
+              Write-Output "Process is running:"
+              $process
+          } else {
+              Write-Output "Process is not running."
+          }
 
             # Step 5: Wait until the application is listening on port 9880
       - name: Wait for application to initialize
