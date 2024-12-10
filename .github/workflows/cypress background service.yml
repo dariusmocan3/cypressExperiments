@@ -44,12 +44,22 @@ jobs:
           New-NetFirewallRule -DisplayName "eController Integration Hub" -Direction Inbound -Program "${{ github.workspace }}\ehub\eController.IntegrationHub.exe" -Action Allow
           echo "Firewall rule added successfully."
 
-      # Step 4: Execute the eController.IntegrationHub.exe application
       - name: Start eController.IntegrationHub.exe
         shell: pwsh
         run: |
           echo "Starting eController.IntegrationHub.exe..."
-          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow
+          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" `
+                        -WorkingDirectory "${{ github.workspace }}\ehub" `
+                        -NoNewWindow `
+                        -RedirectStandardOutput "${{ github.workspace }}\ehub\app.log" `
+                        -RedirectStandardError "${{ github.workspace }}\ehub\app.err" `
+                        -PassThru | Out-Null
+          Start-Sleep -Seconds 5
+          if (-Not (Test-NetConnection -ComputerName "localhost" -Port 9800).TcpTestSucceeded) {
+            Write-Error "Application failed to start on localhost:9800. Logs:"
+            Get-Content "${{ github.workspace }}\ehub\app.log" -Tail 50
+            exit 1
+          }
 
       - name: Check if eController.IntegrationHub.exe is running
         shell: pwsh
