@@ -36,13 +36,6 @@ jobs:
           echo "Starting eController.IntegrationHub.exe..."
           Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow  
 
-      # Step 5: Wait for the application to start
-      - name: Wait for the application to initialize
-        shell: cmd
-        run: |
-          echo "Waiting for the application to initialize..."
-          timeout /t 10
-
       # Step 6: Setup Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v3
