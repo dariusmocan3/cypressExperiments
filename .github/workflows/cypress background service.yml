@@ -15,6 +15,13 @@ jobs:
         with:
           fetch-depth: 0 # Ensures the full repository is checked out
 
+      - name: Show current user
+        run: whoami
+
+      - name: Show tasklist
+        shell: pwsh
+        run: Get-Process
+
       # Step 2: Confirm the working directory
       - name: Show current workspace
         run: |
@@ -28,6 +35,14 @@ jobs:
         run: |
           echo "Listing all files:"
           Get-ChildItem -Path . -Recurse
+          
+      # Step 4: Configure Firewall Rules
+      - name: Add Firewall Rule for eController.IntegrationHub.exe
+        shell: pwsh
+        run: |
+          echo "Adding firewall rule for eController.IntegrationHub.exe..."
+          New-NetFirewallRule -DisplayName "eController Integration Hub" -Direction Inbound -Program "${{ github.workspace }}\ehub\eController.IntegrationHub.exe" -Action Allow
+          echo "Firewall rule added successfully."
 
       # Step 4: Execute the eController.IntegrationHub.exe application
       - name: Start eController.IntegrationHub.exe
@@ -47,7 +62,7 @@ jobs:
               Write-Output "Process is not running."
           }
 
-            # Step 5: Wait until the application is listening on port 9880
+        # Step 5: Wait until the application is listening on port 9880
       - name: Wait for application to initialize
         shell: pwsh
         run: |
