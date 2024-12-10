@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "Starting eController.IntegrationHub.exe..."
           cd ehub # Navigate to the ehub folder
-          start /b .\eController.IntegrationHub.exe # Start the app in the background
+          start "" cmd /c .\eController.IntegrationHub.exe # Fully detach the process
 
       # Step 5: Wait for the application to start
       - name: Wait for the application to initialize
