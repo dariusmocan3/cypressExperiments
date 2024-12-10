@@ -1,4 +1,4 @@
-name: "bliue"
+name: "Start eHub and Run Cypress Tests as background"
 
 on:
   workflow_dispatch: # Allows manual execution
