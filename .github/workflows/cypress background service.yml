@@ -34,7 +34,7 @@ jobs:
         shell: pwsh
         run: |
           echo "Starting eController.IntegrationHub.exe..."
-          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow -Wait    
+          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow  
 
       # Step 5: Wait for the application to start
       - name: Wait for the application to initialize
