@@ -40,12 +40,12 @@ jobs:
       - name: Wait for application to initialize
         shell: pwsh
         run: |
-          echo "Waiting for the application to start on http://localhost:9880..."
+          echo "Waiting for the application to start on http://0.0.0.0:9880..."
           $maxRetries = 30
           $retryCount = 0
           while ($retryCount -lt $maxRetries) {
               try {
-                  Invoke-WebRequest -Uri "http://localhost:9880" -UseBasicParsing -TimeoutSec 5
+                  Invoke-WebRequest -Uri "http://0.0.0.0:9880" -UseBasicParsing -TimeoutSec 5
                   echo "Application is ready!"
                   break
               } catch {
