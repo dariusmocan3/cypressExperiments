@@ -1,12 +1,12 @@
-name: "Start eHub"
+name: "Start eHub and Run Cypress Tests"
 
 on:
   workflow_dispatch: # Allows manual execution
 
 jobs:
-  run-application:
+  run-tests:
     runs-on: windows-latest
-    timeout-minutes: 10 # Extended timeout to accommodate both app and tests
+    timeout-minutes: 15 # Extended timeout to accommodate both app and tests
 
     steps:
       # Step 1: Checkout the repository
@@ -21,6 +21,7 @@ jobs:
           echo "Current workspace is:"
           echo ${{ github.workspace }}
           dir
+
       # Step 3: List all project files using PowerShell
       - name: List all files in the repository
         shell: pwsh
@@ -29,13 +30,14 @@ jobs:
           Get-ChildItem -Path . -Recurse
           
       # Step 4: Execute the eController.IntegrationHub.exe application
-      - name: Run eController.IntegrationHub.exe
+      - name: Start eController.IntegrationHub.exe
+        shell: cmd
         run: |
-          echo "Running eController.IntegrationHub.exe..."
-          cd ehub # Navigate to the `publish` folder
-          .\eController.IntegrationHub.exe
+          echo "Starting eController.IntegrationHub.exe..."
+          cd ehub # Navigate to the ehub folder
+          start /b .\eController.IntegrationHub.exe # Start the app in the background
 
-       # Step 5: Wait for the application to start
+      # Step 5: Wait for the application to start
       - name: Wait for the application to initialize
         shell: cmd
         run: |
