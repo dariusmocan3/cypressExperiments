@@ -26,43 +26,6 @@ jobs:
               -NoNewWindow
           }
           echo "Application started as a background job."
-
-
-      # Step 3: Wait for log files to appear
-      - name: Wait for stdout.log and stderr.log to appear
-        shell: pwsh
-        run: |
-          echo "Waiting for stdout.log and stderr.log to be generated..."
-          $logPath1 = "${{ github.workspace }}\ehub\stdout.log"
-          $logPath2 = "${{ github.workspace }}\ehub\stderr.log"
-          $maxRetries = 30
-          $retryCount = 0
-          while ($retryCount -lt $maxRetries) {
-              if ((Test-Path $logPath1) -and (Test-Path $logPath2)) {
-                  echo "Log files found."
-                  break
-              }
-              echo "Log files not found yet, retrying in 2 seconds..."
-              Start-Sleep -Seconds 2
-              $retryCount++
-          }
-          if ($retryCount -eq $maxRetries) {
-              throw "Log files were not generated after $($maxRetries * 2) seconds."
-          }
-
-      # Step 4: Display stdout.log
-      - name: Display stdout logs
-        shell: pwsh
-        run: |
-          echo "Displaying application standard output logs (stdout.log):"
-          Get-Content "${{ github.workspace }}\ehub\stdout.log" -Tail 50
-
-      # Step 5: Display stderr.log
-      - name: Display stderr logs
-        shell: pwsh
-        run: |
-          echo "Displaying application error logs (stderr.log):"
-          Get-Content "${{ github.workspace }}\ehub\stderr.log" -Tail 50
           
       # Step 6: Display application-generated logs
       - name: Debug application-generated logs path
@@ -79,6 +42,11 @@ jobs:
           } else {
               throw "Log file not found at $logFile"
           }
+
+      # Step 7 check inside the task list for eHub
+      - name: Check if eController.IntegrationHub.exe is running
+        shell: pwsh
+        run: Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
 
       # Step 7: Setup Node.js
       - name: Setup Node.js
