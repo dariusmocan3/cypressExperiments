@@ -60,7 +60,7 @@ jobs:
         run: |
           echo "Displaying application error logs (stderr.log):"
           Get-Content "${{ github.workspace }}\ehub\stderr.log" -Tail 50
-
+          
       # Step 6: Display application-generated logs
       - name: Display application-generated logs
         shell: pwsh
