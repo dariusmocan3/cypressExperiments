@@ -13,17 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-# Step 2: Start the application in the background
-      - name: Start eController.IntegrationHub.exe in the background
-        shell: pwsh
+      # Step 4: Execute the eController.IntegrationHub.exe application
+      - name: Run eController.IntegrationHub.exe
         run: |
-          echo "Starting eController.IntegrationHub.exe as a background process..."
-          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" `
-            -WorkingDirectory "${{ github.workspace }}\ehub" `
-            -RedirectStandardOutput "${{ github.workspace }}\ehub\stdout.log" `
-            -RedirectStandardError "${{ github.workspace }}\ehub\stderr.log" `
-            -NoNewWindow -PassThru
-          echo "Application started as a background process."
+          echo "Running eController.IntegrationHub.exe..."
+          cd publish # Navigate to the `publish` folder
+          .\eController.IntegrationHub.exe & # Run the application in the background
 
             # Step 7 check inside the task list for eHub
       - name: Check if eController.IntegrationHub.exe is running
