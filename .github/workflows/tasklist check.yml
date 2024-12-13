@@ -35,7 +35,7 @@ jobs:
           $maxRetries = 30
           $retryCount = 0
           while ($retryCount -lt $maxRetries) {
-              if (Test-Path $logPath1 -and Test-Path $logPath2) {
+              if ((Test-Path $logPath1) -and (Test-Path $logPath2)) {
                   echo "Log files found."
                   break
               }
