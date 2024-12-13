@@ -69,7 +69,7 @@ jobs:
           $logDir = "${{ github.workspace }}\ehub\Logs"
           echo "Listing all files in: $logDir"
           Get-ChildItem -Path $logDir
-          $logFile = "$logDir\eController.IntegrationHub.log"
+          $logFile = "$logDir\eController.IntegrationHub..log"
           if (Test-Path $logFile) {
               echo "Found log file at $logFile"
               Get-Content $logFile -Tail 50
