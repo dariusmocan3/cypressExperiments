@@ -17,7 +17,7 @@ jobs:
       - name: Run eController.IntegrationHub.exe
         run: |
           echo "Running eController.IntegrationHub.exe..."
-          cd publish # Navigate to the `publish` folder
+          cd ehub # Navigate to the `ehub` folder
           .\eController.IntegrationHub.exe & # Run the application in the background
 
             # Step 7 check inside the task list for eHub
