@@ -1,4 +1,4 @@
-name: "Start eHub as Background"
+name: "Start eHub and Run Tests"
 
 on:
   workflow_dispatch:
@@ -9,56 +9,67 @@ jobs:
     timeout-minutes: 30
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-
+      # Step 2: Start the application in the background and log to app.log
       - name: Start eController.IntegrationHub.exe in the background
         shell: pwsh
         run: |
           echo "Starting eController.IntegrationHub.exe in the background..."
-          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow -PassThru
-          echo "Application started."
+          cd ehub
+          Start-Process -FilePath ".\eController.IntegrationHub.exe" `
+            -RedirectStandardOutput "${{ github.workspace }}\ehub\app.log" `
+            -RedirectStandardError "${{ github.workspace }}\ehub\app.log" `
+            -NoNewWindow -PassThru
+          echo "Application started in the background. Console logs redirected to app.log."
 
-      - name: Verify if the process is running
+      # Step 3: Wait for app.log to appear
+      - name: Wait for app.log to appear
         shell: pwsh
         run: |
-          $process = Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
-          if ($null -eq $process) {
-              throw "eController.IntegrationHub.exe is not running!"
-          } else {
-              echo "Process is running: $($process.Name)"
-          }
-
-      - name: Wait for application to initialize
-        shell: pwsh
-        run: |
-          echo "Waiting for the application to start on http://127.0.0.1:9880..."
-          $maxRetries = 50
+          echo "Waiting for app.log to be generated..."
+          $logPath = "${{ github.workspace }}\ehub\app.log"
+          $maxRetries = 30
           $retryCount = 0
           while ($retryCount -lt $maxRetries) {
-              try {
-                  Invoke-WebRequest -Uri "http://127.0.0.1:9880" -UseBasicParsing -TimeoutSec 5
-                  echo "Application is ready!"
+              if (Test-Path $logPath) {
+                  echo "app.log file found."
                   break
-              } catch {
-                  echo "Application not ready yet, retrying in 5 seconds..."
-                  Start-Sleep -Seconds 5
-                  $retryCount++
               }
+              echo "app.log not found yet, retrying in 2 seconds..."
+              Start-Sleep -Seconds 2
+              $retryCount++
           }
           if ($retryCount -eq $maxRetries) {
-              throw "Application failed to start after $($maxRetries * 5) seconds."
+              throw "app.log was not generated after $($maxRetries * 2) seconds."
           }
 
+      # Step 4: Display console output logs
+      - name: Display console output logs (app.log)
+        shell: pwsh
+        run: |
+          echo "Displaying console output logs from app.log:"
+          Get-Content "${{ github.workspace }}\ehub\app.log" -Tail 50
+
+      # Step 5: Display application-generated logs (.log file)
+      - name: Display application-generated logs
+        shell: pwsh
+        run: |
+          echo "Displaying application-generated logs:"
+          Get-Content "${{ github.workspace }}\ehub\Logs\eController.IntegrationHub.log" -Tail 50
+
+      # Step 6: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
+      # Step 7: Install Cypress dependencies
       - name: Install Cypress dependencies
         run: npm install
 
+      # Step 8: Run Cypress Tests
       - name: Run Cypress Tests
         run: npx cypress run
-        
