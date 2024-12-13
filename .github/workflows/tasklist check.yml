@@ -25,7 +25,17 @@ jobs:
         shell: pwsh
         run: Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
           
-      # Step 6: Display application-generated logs
+
+
+      # Step: Print all running processes
+      - name: Print all running processes
+        shell: pwsh
+        run: |
+          echo "Listing all running processes..."
+          Get-Process | Format-Table -AutoSize
+
+    
+            # Step 6: Display application-generated logs
       - name: Debug application-generated logs path
         shell: pwsh
         run: |
@@ -40,14 +50,6 @@ jobs:
           } else {
               throw "Log file not found at $logFile"
           }
-
-      # Step: Print all running processes
-      - name: Print all running processes
-        shell: pwsh
-        run: |
-          echo "Listing all running processes..."
-          Get-Process | Format-Table -AutoSize
-
 
       # Step 7: Setup Node.js
       - name: Setup Node.js
