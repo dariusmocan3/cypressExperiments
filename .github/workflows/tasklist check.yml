@@ -16,8 +16,8 @@ jobs:
         shell: pwsh
         run: |
           echo "Starting eController.IntegrationHub.exe..."
-          .\ehub\eController.IntegrationHub.exe > integrationhub.log 2>&1 &
-          Start-Sleep -Seconds 10
+          cd ehub # Navigate to the `publish` folder
+          .\eController.IntegrationHub.exe
 
       - name: Verify if the process is running
         shell: pwsh
@@ -60,3 +60,7 @@ jobs:
 
       - name: Run Cypress Tests
         run: npx cypress run
+
+
+  
+  
