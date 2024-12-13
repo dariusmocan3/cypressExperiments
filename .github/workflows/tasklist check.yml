@@ -62,11 +62,20 @@ jobs:
           Get-Content "${{ github.workspace }}\ehub\stderr.log" -Tail 50
           
       # Step 6: Display application-generated logs
-      - name: Display application-generated logs
+      - name: Debug application-generated logs path
         shell: pwsh
         run: |
-          echo "Displaying application-generated logs:"
-          Get-Content "${{ github.workspace }}\ehub\Logs\eController.IntegrationHub.log" -Tail 50
+          echo "Checking for application-generated logs..."
+          $logDir = "${{ github.workspace }}\ehub\Logs"
+          echo "Listing all files in: $logDir"
+          Get-ChildItem -Path $logDir
+          $logFile = "$logDir\eController.IntegrationHub.log"
+          if (Test-Path $logFile) {
+              echo "Found log file at $logFile"
+              Get-Content $logFile -Tail 50
+          } else {
+              throw "Log file not found at $logFile"
+          }
 
       # Step 7: Setup Node.js
       - name: Setup Node.js
