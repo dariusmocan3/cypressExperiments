@@ -13,17 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Start the application in the background and capture logs
-      - name: Start eController.IntegrationHub.exe in the background
+    # Step 2: Start the application in the background as a job
+      - name: Start eController.IntegrationHub.exe as a persistent background job
         shell: pwsh
         run: |
-          echo "Starting eController.IntegrationHub.exe in the background..."
+          echo "Starting eController.IntegrationHub.exe as a persistent job..."
           cd ehub
-          Start-Process -FilePath ".\eController.IntegrationHub.exe" `
-            -RedirectStandardOutput "${{ github.workspace }}\ehub\stdout.log" `
-            -RedirectStandardError "${{ github.workspace }}\ehub\stderr.log" `
-            -NoNewWindow -PassThru
-          echo "Application started in the background. Logs redirected to stdout.log and stderr.log."
+          Start-Job -ScriptBlock {
+            Start-Process -FilePath ".\eController.IntegrationHub.exe" `
+              -RedirectStandardOutput "${{ github.workspace }}\ehub\stdout.log" `
+              -RedirectStandardError "${{ github.workspace }}\ehub\stderr.log" `
+              -NoNewWindow
+          }
+          echo "Application started as a background job."
+
 
       # Step 3: Wait for log files to appear
       - name: Wait for stdout.log and stderr.log to appear
