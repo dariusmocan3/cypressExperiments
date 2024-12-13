@@ -13,63 +13,71 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Start the application in the background and log to app.log
+      # Step 2: Start the application in the background and capture logs
       - name: Start eController.IntegrationHub.exe in the background
         shell: pwsh
         run: |
           echo "Starting eController.IntegrationHub.exe in the background..."
           cd ehub
           Start-Process -FilePath ".\eController.IntegrationHub.exe" `
-            -RedirectStandardOutput "${{ github.workspace }}\ehub\app.log" `
-            -RedirectStandardError "${{ github.workspace }}\ehub\app.log" `
+            -RedirectStandardOutput "${{ github.workspace }}\ehub\stdout.log" `
+            -RedirectStandardError "${{ github.workspace }}\ehub\stderr.log" `
             -NoNewWindow -PassThru
-          echo "Application started in the background. Console logs redirected to app.log."
+          echo "Application started in the background. Logs redirected to stdout.log and stderr.log."
 
-      # Step 3: Wait for app.log to appear
-      - name: Wait for app.log to appear
+      # Step 3: Wait for log files to appear
+      - name: Wait for stdout.log and stderr.log to appear
         shell: pwsh
         run: |
-          echo "Waiting for app.log to be generated..."
-          $logPath = "${{ github.workspace }}\ehub\app.log"
+          echo "Waiting for stdout.log and stderr.log to be generated..."
+          $logPath1 = "${{ github.workspace }}\ehub\stdout.log"
+          $logPath2 = "${{ github.workspace }}\ehub\stderr.log"
           $maxRetries = 30
           $retryCount = 0
           while ($retryCount -lt $maxRetries) {
-              if (Test-Path $logPath) {
-                  echo "app.log file found."
+              if (Test-Path $logPath1 -and Test-Path $logPath2) {
+                  echo "Log files found."
                   break
               }
-              echo "app.log not found yet, retrying in 2 seconds..."
+              echo "Log files not found yet, retrying in 2 seconds..."
               Start-Sleep -Seconds 2
               $retryCount++
           }
           if ($retryCount -eq $maxRetries) {
-              throw "app.log was not generated after $($maxRetries * 2) seconds."
+              throw "Log files were not generated after $($maxRetries * 2) seconds."
           }
 
-      # Step 4: Display console output logs
-      - name: Display console output logs (app.log)
+      # Step 4: Display stdout.log
+      - name: Display stdout logs
         shell: pwsh
         run: |
-          echo "Displaying console output logs from app.log:"
-          Get-Content "${{ github.workspace }}\ehub\app.log" -Tail 50
+          echo "Displaying application standard output logs (stdout.log):"
+          Get-Content "${{ github.workspace }}\ehub\stdout.log" -Tail 50
 
-      # Step 5: Display application-generated logs (.log file)
+      # Step 5: Display stderr.log
+      - name: Display stderr logs
+        shell: pwsh
+        run: |
+          echo "Displaying application error logs (stderr.log):"
+          Get-Content "${{ github.workspace }}\ehub\stderr.log" -Tail 50
+
+      # Step 6: Display application-generated logs
       - name: Display application-generated logs
         shell: pwsh
         run: |
           echo "Displaying application-generated logs:"
           Get-Content "${{ github.workspace }}\ehub\Logs\eController.IntegrationHub.log" -Tail 50
 
-      # Step 6: Setup Node.js
+      # Step 7: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      # Step 7: Install Cypress dependencies
+      # Step 8: Install Cypress dependencies
       - name: Install Cypress dependencies
         run: npm install
 
-      # Step 8: Run Cypress Tests
+      # Step 9: Run Cypress Tests
       - name: Run Cypress Tests
         run: npx cypress run
