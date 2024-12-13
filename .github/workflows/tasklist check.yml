@@ -12,12 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Start eController.IntegrationHub.exe in the foreground
+
+      - name: Start eController.IntegrationHub.exe in the background
         shell: pwsh
         run: |
-          echo "Starting eController.IntegrationHub.exe..."
-          cd ehub # Navigate to the `publish` folder
-          .\eController.IntegrationHub.exe
+          echo "Starting eController.IntegrationHub.exe in the background..."
+          Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" -WorkingDirectory "${{ github.workspace }}\ehub" -NoNewWindow -PassThru
+          echo "Application started."
 
       - name: Verify if the process is running
         shell: pwsh
@@ -60,7 +61,4 @@ jobs:
 
       - name: Run Cypress Tests
         run: npx cypress run
-
-
-  
-  
+        
