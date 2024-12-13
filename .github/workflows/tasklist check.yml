@@ -49,16 +49,33 @@ jobs:
         run: |
           echo "Listing all running processes..."
           Get-Process | Format-Table -AutoSize
-      # Step 7: Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      # Step 8: Install Cypress dependencies
-      - name: Install Cypress dependencies
-        run: npm install
-
-      # Step 9: Run Cypress Tests
-      - name: Run Cypress Tests
-        run: npx cypress run
+      
+      - name: Start eController.IntegrationHub.exe and Run Tests
+        shell: pwsh
+        run: |
+          # Step 1: Start the application as a background process
+          echo "Starting eController.IntegrationHub.exe as a background process..."
+          $process = Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" `
+            -WorkingDirectory "${{ github.workspace }}\ehub" `
+            -RedirectStandardOutput "${{ github.workspace }}\ehub\stdout.log" `
+            -RedirectStandardError "${{ github.workspace }}\ehub\stderr.log" `
+            -NoNewWindow -PassThru
+          echo "Application started as a background process."
+      
+          # Step 2: List all running processes
+          echo "Listing all running processes..."
+          Get-Process | Format-Table -AutoSize
+      
+          # Step 3: Setup Node.js
+          echo "Setting up Node.js..."
+          Import-Module -Name NodeJsToolInstaller
+          Install-NodeJs -NodeJsVersion '16'
+      
+          # Step 4: Install Cypress dependencies
+          echo "Installing Cypress dependencies..."
+          npm install
+      
+          # Step 5: Run Cypress Tests
+          echo "Running Cypress tests..."
+          npx cypress run
+      
