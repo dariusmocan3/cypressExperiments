@@ -8,35 +8,33 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 30
 
-
     steps:
       # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 4: Execute the eController.IntegrationHub.exe application
-      - name: Run eController.IntegrationHub.exe
-        run: |
-          echo "Running eController.IntegrationHub.exe..."
-          cd ehub # Navigate to the `ehub` folder
-          .\eController.IntegrationHub.exe & # Run the application in the background
-
-            # Step 7 check inside the task list for eHub
-      - name: Check if eController.IntegrationHub.exe is running
+# Step 2: Start the application in the background
+      - name: Start and Verify eController.IntegrationHub.exe in the background
         shell: pwsh
-        run: Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
+        run: |
+          echo "Starting eController.IntegrationHub.exe as a background process..."
+          $process = Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" `
+            -WorkingDirectory "${{ github.workspace }}\ehub" `
+            -RedirectStandardOutput "${{ github.workspace }}\ehub\stdout.log" `
+            -RedirectStandardError "${{ github.workspace }}\ehub\stderr.log" `
+            -NoNewWindow -PassThru
+          echo "Application started as a background process."
+      
+          echo "Verifying if the application is running..."
+          $runningProcess = Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
+          if ($null -eq $runningProcess) {
+              throw "eController.IntegrationHub.exe is not running!"
+          } else {
+              echo "Process is running: $($runningProcess.Name)"
+          }
+
           
-
-
-      # Step: Print all running processes
-      - name: Print all running processes
-        shell: pwsh
-        run: |
-          echo "Listing all running processes..."
-          Get-Process | Format-Table -AutoSize
-
-    
-            # Step 6: Display application-generated logs
+      # Step 6: Display application-generated logs
       - name: Debug application-generated logs path
         shell: pwsh
         run: |
@@ -51,7 +49,12 @@ jobs:
           } else {
               throw "Log file not found at $logFile"
           }
-
+      # Step: Print all running processes
+      - name: Print all running processes
+        shell: pwsh
+        run: |
+          echo "Listing all running processes..."
+          Get-Process | Format-Table -AutoSize
       # Step 7: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
