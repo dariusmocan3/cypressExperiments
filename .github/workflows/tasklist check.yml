@@ -26,6 +26,11 @@ jobs:
               -NoNewWindow
           }
           echo "Application started as a background job."
+
+            # Step 7 check inside the task list for eHub
+      - name: Check if eController.IntegrationHub.exe is running
+        shell: pwsh
+        run: Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
           
       # Step 6: Display application-generated logs
       - name: Debug application-generated logs path
