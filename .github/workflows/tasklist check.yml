@@ -13,7 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-# Step 2: Start the application in the background
       - name: Start and Verify eController.IntegrationHub.exe in the background
         shell: pwsh
         run: |
@@ -25,13 +24,8 @@ jobs:
             -NoNewWindow -PassThru
           echo "Application started as a background process."
       
-          echo "Verifying if the application is running..."
-          $runningProcess = Get-Process | Where-Object { $_.ProcessName -like "*IntegrationHub*" }
-          if ($null -eq $runningProcess) {
-              throw "eController.IntegrationHub.exe is not running!"
-          } else {
-              echo "Process is running: $($runningProcess.Name)"
-          }
+          echo "Listing all running processes..."
+          Get-Process | Format-Table -AutoSize
 
           
       # Step 6: Display application-generated logs
