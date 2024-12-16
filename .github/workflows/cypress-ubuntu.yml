@@ -41,8 +41,8 @@ jobs:
         run: |
           # Step 1: Start the application as a background process
           echo "Starting eController.IntegrationHub as a background process..."
-          chmod +x ./ehub/eController.IntegrationHub   # Ensure the file is executable
-          nohup ./ehub/eController.IntegrationHub > ./ehub/stdout.log 2> ./ehub/stderr.log &
+          chmod +x ./ehub/eController.IntegrationHub.exe   # Ensure the file is executable
+          nohup ./ehub/eController.IntegrationHub.exe > ./ehub/stdout.log 2> ./ehub/stderr.log &
           sleep 5  # Allow time for the application to start
 
           # Step 2: Verify the application is running
