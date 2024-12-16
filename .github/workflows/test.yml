@@ -40,6 +40,8 @@ jobs:
           echo "Application started as a background process with PID $INTEGRATION_HUB_PID."
           echo "Waiting for eController.IntegrationHub to initialize..."
           sleep 10
+          echo "Listing all running processes..."
+          ps aux
           echo "Running Cypress tests..."
           npx cypress run
 
