@@ -1,0 +1,56 @@
+name: "test"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Print all running processes
+      - name: Print all running processes
+        run: |
+          echo "Listing all running processes..."
+          ps aux
+
+      # Step 3: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Step 4: Install Cypress dependencies
+      - name: Install Cypress dependencies
+        run: |
+          echo "Installing Cypress dependencies..."
+          npm install
+
+      # Step 5: Start eController.IntegrationHub and Run Tests
+      - name: Start eController.IntegrationHub and Run Tests
+        run: |
+          echo "Starting eController.IntegrationHub as a background process..."
+          nohup ./ehub/eController.IntegrationHub &> "${GITHUB_WORKSPACE}/ehub/integrationhub.log" &
+          export INTEGRATION_HUB_PID=$!
+          echo "Application started as a background process with PID $INTEGRATION_HUB_PID."
+          echo "Waiting for eController.IntegrationHub to initialize..."
+          sleep 10
+          echo "Running Cypress tests..."
+          npx cypress run
+
+      # Step 6: Cleanup - Stop the background process
+      - name: Cleanup background process
+        if: always()
+        run: |
+          echo "Stopping eController.IntegrationHub process..."
+          if [ -n "$INTEGRATION_HUB_PID" ]; then
+            kill -9 $INTEGRATION_HUB_PID
+            echo "Background process stopped."
+          else
+            echo "No process to stop."
+          fi
