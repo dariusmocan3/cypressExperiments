@@ -1,0 +1,58 @@
+name: "Cypress test - Ubuntu"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      # Step 1: Print all running processes
+      - name: Print all running processes
+        run: |
+          echo "Listing all running processes..."
+          ps aux
+
+      # Step 2: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 3: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Step 4: Install Cypress dependencies
+      - name: Install Cypress dependencies
+        run: |
+          echo "Installing Cypress dependencies..."
+          npm install
+
+      # Step 5: Start eController.IntegrationHub and Run Cypress Tests
+      - name: Start eController.IntegrationHub and Run Tests
+        run: |
+          # Step 1: Start the application as a background process
+          echo "Starting eController.IntegrationHub as a background process..."
+          chmod +x ./ehub/eController.IntegrationHub   # Ensure the file is executable
+          nohup ./ehub/eController.IntegrationHub > ./ehub/stdout.log 2> ./ehub/stderr.log &
+          sleep 5  # Allow time for the application to start
+
+          # Step 2: Verify the application is running
+          echo "Verifying the application is running..."
+          ps aux | grep eController.IntegrationHub
+
+          # Step 3: Run Cypress tests
+          echo "Running Cypress tests..."
+          npx cypress run
+
+      # Step 6: Display application logs if tests fail
+      - name: Display Application Logs
+        if: failure()
+        run: |
+          echo "Displaying application logs..."
+          cat ./ehub/stdout.log
+          echo "Displaying error logs..."
+          cat ./ehub/stderr.log
