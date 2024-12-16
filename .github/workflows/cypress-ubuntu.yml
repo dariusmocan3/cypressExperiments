@@ -19,6 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Verify eHub Files Exist
+        run: |
+          echo "Checking for eHub directory contents..."
+          ls -al ./ehub
+
       # Step 3: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
