@@ -1,5 +1,5 @@
 describe('Check eHub and History interactions', () => {
-    it('should handle eHub click, unhover to check History disappears, and navigate to History', () => {
+    it('check eHub history button', () => {
         // Step 1: Visit the main page
         cy.visit('http://0.0.0.0:9880', { retryOnStatusCodeFailure: true, retryOnNetworkFailure: true });
 
