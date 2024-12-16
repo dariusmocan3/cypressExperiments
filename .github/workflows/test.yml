@@ -1,4 +1,4 @@
-name: "test"
+name: "Cypress test - Ubuntu"
 
 on:
   workflow_dispatch:
@@ -13,11 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Print all running processes
-      - name: Print all running processes
+      # Step 2: Install dependencies for Cypress
+      - name: Install required dependencies
         run: |
-          echo "Listing all running processes..."
-          ps aux
+          sudo apt-get update
+          sudo apt-get install -y libnss3 xvfb libgbm-dev
 
       # Step 3: Setup Node.js
       - name: Setup Node.js
@@ -40,8 +40,14 @@ jobs:
           echo "Application started as a background process with PID $INTEGRATION_HUB_PID."
           echo "Waiting for eController.IntegrationHub to initialize..."
           sleep 10
-          echo "Listing all running processes..."
-          ps aux
+
+          # Start a virtual display server
+          echo "Starting virtual display server for Cypress..."
+          Xvfb :99 -screen 0 1280x1024x24 &
+
+          # Set display variable for Cypress
+          export DISPLAY=:99
+          
           echo "Running Cypress tests..."
           npx cypress run
 
