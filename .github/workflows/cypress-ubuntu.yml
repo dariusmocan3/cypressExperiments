@@ -6,58 +6,56 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 30
 
     steps:
-      # Step 1: Print all running processes
-      - name: Print all running processes
+      # Step 1: Install Wine for running Windows executables
+      - name: Install Wine
         run: |
-          echo "Listing all running processes..."
-          ps aux
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y wine64 wine32
 
       # Step 2: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Verify eHub Files Exist
+      # Step 3: Print all running processes
+      - name: Print all running processes
         run: |
-          echo "Checking for eHub directory contents..."
-          ls -al ./ehub
+          echo "Listing all running processes..."
+          ps aux
 
-      # Step 3: Setup Node.js
+      # Step 4: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      # Step 4: Install Cypress dependencies
+      # Step 5: Install Cypress dependencies
       - name: Install Cypress dependencies
         run: |
           echo "Installing Cypress dependencies..."
           npm install
 
-      # Step 5: Start eController.IntegrationHub and Run Cypress Tests
-      - name: Start eController.IntegrationHub and Run Tests
+      # Step 6: Start eController.IntegrationHub.exe using Wine
+      - name: Start eController.IntegrationHub.exe with Wine and Run Tests
         run: |
-          # Step 1: Start the application as a background process
-          echo "Starting eController.IntegrationHub as a background process..."
-          chmod +x ./ehub/eController.IntegrationHub.exe   # Ensure the file is executable
-          nohup ./ehub/eController.IntegrationHub.exe > ./ehub/stdout.log 2> ./ehub/stderr.log &
-          sleep 5  # Allow time for the application to start
+          echo "Starting eController.IntegrationHub.exe using Wine..."
+          wine ./ehub/eController.IntegrationHub.exe > stdout.log 2> stderr.log &
+          sleep 10  # Allow some time for the server to initialize
 
-          # Step 2: Verify the application is running
           echo "Verifying the application is running..."
-          ps aux | grep eController.IntegrationHub
+          ps aux | grep eController
 
-          # Step 3: Run Cypress tests
           echo "Running Cypress tests..."
           npx cypress run
 
-      # Step 6: Display application logs if tests fail
+      # Step 7: Display Application Logs
       - name: Display Application Logs
-        if: failure()
         run: |
-          echo "Displaying application logs..."
-          cat ./ehub/stdout.log
-          echo "Displaying error logs..."
-          cat ./ehub/stderr.log
+          echo "Displaying stdout logs..."
+          cat stdout.log || echo "No stdout log found."
+
+          echo "Displaying stderr logs..."
+          cat stderr.log || echo "No stderr log found."
