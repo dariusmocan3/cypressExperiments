@@ -9,6 +9,9 @@ jobs:
     timeout-minutes: 5
     
     steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
     
         # Step 1: Print all running processes
       - name: Print all running processes
