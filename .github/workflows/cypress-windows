@@ -31,7 +31,6 @@ jobs:
       - name: Start eController.IntegrationHub.exe and Run Tests
         shell: pwsh
         run: |
-          # Step 1: Start the application as a background process
           echo "Starting eController.IntegrationHub.exe as a background process..."
           $process = Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" `
             -WorkingDirectory "${{ github.workspace }}\ehub" `
