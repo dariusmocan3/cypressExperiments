@@ -1,0 +1,44 @@
+name: "Cypress test - Windows"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: windows-latest
+    timeout-minutes: 5
+
+        # Step 1: Print all running processes
+      - name: Print all running processes
+        shell: pwsh
+        run: |
+          echo "Listing all running processes..."
+          Get-Process | Format-Table -AutoSize
+
+         # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+        # Step 3: Install Cypress dependencies
+      - name: Install Cypress dependencies
+        run: |
+          echo "Installing Cypress dependencies..."
+          npm install
+
+        # Step 4: Start eHub and run the Cypress test
+      - name: Start eController.IntegrationHub.exe and Run Tests
+        shell: pwsh
+        run: |
+          # Step 1: Start the application as a background process
+          echo "Starting eController.IntegrationHub.exe as a background process..."
+          $process = Start-Process -FilePath ".\ehub\eController.IntegrationHub.exe" `
+            -WorkingDirectory "${{ github.workspace }}\ehub" `
+            -RedirectStandardOutput "${{ github.workspace }}\ehub\stdout.log" `
+            -RedirectStandardError "${{ github.workspace }}\ehub\stderr.log" `
+            -NoNewWindow -PassThru
+          echo "Application started as a background process."
+          echo "Running Cypress tests..."
+          npx cypress run
+      
